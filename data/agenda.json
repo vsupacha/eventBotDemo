@@ -6,11 +6,193 @@
         "start": "2022-11-16T10:00:00",
         "end": "2022-11-16T11:00:00"
     },
-    "elentriction_engr_bootcamp": {
+    "electrical_engr_bootcamp": {
         "title": "ค่ายวิศวไฟฟ้า",
         "description": "เรียนรู้สายงานของวิศวไฟฟ้า",
         "location": "eng_main_building",
         "start": "2022-11-16T10:00:00",
         "end": "2022-11-16T11:00:00"
+    },
+    "software_engr_bootcamp": {
+        "title": "ค่ายวิศวซอฟต์แวร์",
+        "description": "เรียนรู้สายงานของวิศวซอฟต์แวร์",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
+    },
+    "industrial_engr_bootcamp": {
+        "title": "ค่ายวิศวอุตสาหการ",
+        "description": "เรียนรู้สายงานของวิศวอุตสาหการ",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
+    },
+    "civil_engr_bootcamp": {
+        "title": "ค่ายวิศวโยธา",
+        "description": "เรียนรู้สายงานของวิศวโยธา",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
+    },
+    "chemica_engr_bootcamp": {
+        "title": "ค่ายวิศวเคมี",
+        "description": "เรียนรู้สายงานของวิศวเคมี",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
+    },
+    "mechanical_engr_bootcamp": {
+        "title": "ค่ายวิศวเครื่องกล",
+        "description": "เรียนรู้สายงานของวิศวเครื่องกล",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
+    },
+    "computer_engr_bootcamp_show": {
+        "title": "ค่ายวิศวคอม",
+        "description": "นำเสนอผลงานของวิศวคอม",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "electrical_engr_bootcamp_show": {
+        "title": "ค่ายวิศวไฟฟ้า",
+        "description": "นำเสนอผลงานของวิศวไฟฟ้า",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "software_engr_bootcamp_show": {
+        "title": "ค่ายวิศวซอฟต์แวร์",
+        "description": "นำเสนอผลงานของวิศวซอฟต์แวร์",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "industrial_engr_bootcamp_show": {
+        "title": "ค่ายวิศวอุตสาหการ",
+        "description": "นำเสนอผลงานของวิศวอุตสาหการ",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "civil_engr_bootcamp_show": {
+        "title": "ค่ายวิศวโยธา",
+        "description": "นำเสนอผลงานของวิศวโยธา",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "chemica_engr_bootcamp_show": {
+        "title": "ค่ายวิศวเคมี",
+        "description": "นำเสนอผลงานของวิศวเคมี",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "mechanical_engr_bootcamp_show": {
+        "title": "ค่ายวิศวเครื่องกล",
+        "description": "นำเสนอผลงานของวิศวเครื่องกล",
+        "location": "eng_main_building",
+        "start": "2022-11-16T13:00:00",
+        "end": "2022-11-16T14:00:00"
+    },
+    "computer_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวคอม",
+        "description": "เรียนรู้สายงานของวิศวคอม",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "electrical_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวไฟฟ้า",
+        "description": "เรียนรู้สายงานของวิศวไฟฟ้า",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "software_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวซอฟต์แวร์",
+        "description": "เรียนรู้สายงานของวิศวซอฟต์แวร์",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "industrial_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวอุตสาหการ",
+        "description": "เรียนรู้สายงานของวิศวอุตสาหการ",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "civil_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวโยธา",
+        "description": "เรียนรู้สายงานของวิศวโยธา",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "chemica_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวเคมี",
+        "description": "เรียนรู้สายงานของวิศวเคมี",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "mechanical_engr_bootcamp_day2": {
+        "title": "ค่ายวิศวเครื่องกล",
+        "description": "เรียนรู้สายงานของวิศวเครื่องกล",
+        "location": "eng_main_building",
+        "start": "2022-11-17T10:00:00",
+        "end": "2022-11-17T11:00:00"
+    },
+    "computer_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวคอม",
+        "description": "นำเสนอผลงานของวิศวคอม",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "electrical_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวไฟฟ้า",
+        "description": "นำเสนอผลงานของวิศวไฟฟ้า",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "software_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวซอฟต์แวร์",
+        "description": "นำเสนอผลงานของวิศวซอฟต์แวร์",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "industrial_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวอุตสาหการ",
+        "description": "นำเสนอผลงานของวิศวอุตสาหการ",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "civil_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวโยธา",
+        "description": "นำเสนอผลงานของวิศวโยธา",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "chemica_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวเคมี",
+        "description": "นำเสนอผลงานของวิศวเคมี",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
+    },
+    "mechanical_engr_bootcamp_show_day2": {
+        "title": "ค่ายวิศวเครื่องกล",
+        "description": "นำเสนอผลงานของวิศวเครื่องกล",
+        "location": "eng_main_building",
+        "start": "2022-11-17T13:00:00",
+        "end": "2022-11-17T14:00:00"
     }
 }
