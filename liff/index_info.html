@@ -1,172 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Event Bot Demo</title>
-        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
-        <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-        <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-        <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-    </head>
-    <body>
-        <ons-splitter>
-            <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-                <ons-page>
-                    <ons-list>
-                        <ons-list-item onclick="fn.load('mapPage.html')" tappable>
-                            แผนที่
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('agendaPage.html')" tappable>
-                            กำหนดการ
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('infoPage.html')" tappable>
-                            ข้อมูลหลักสูตร
-                         </ons-list-item>
-                         <ons-list-item onclick="fn.load('rallyPage.html')" tappable>
-                            กิจกรรม
-                         </ons-list-item>                         
-                    </ons-list>
-                </ons-page>
-            </ons-splitter-side>
-            <ons-splitter-content id="content" page="registerPage.html"></ons-splitter-content>
-        </ons-splitter>
 
-        <template id="mapPage.html">
-            <ons-page id="mapPage">
-                <ons-toolbar>
-                    <div class="center">แผนที่</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div> 
-                </ons-toolbar>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Bot Demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+</head>
 
+<body>
+    <ons-splitter>
+        <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
+            <ons-page>
+                <ons-list>
+                    <ons-list-item onclick="fn.load('mapPage.html')" tappable>
+                        แผนที่
+                    </ons-list-item>
+                    <ons-list-item onclick="fn.load('agendaPage.html')" tappable>
+                        กำหนดการ
+                    </ons-list-item>
+                    <ons-list-item onclick="fn.load('infoPage.html')" tappable>
+                        ข้อมูลหลักสูตร
+                    </ons-list-item>
+                    <ons-list-item onclick="fn.load('rallyPage.html')" tappable>
+                        กิจกรรม
+                    </ons-list-item>
+                </ons-list>
             </ons-page>
-        </template>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" page="registerPage.html"></ons-splitter-content>
+    </ons-splitter>
 
-        <template id="agendaPage.html">
-            <ons-page id="agendaPage">
-                <ons-toolbar>
-                    <div class="center">กำหนดการ</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
+    <template id="mapPage.html">
+        <ons-page id="mapPage">
+            <ons-toolbar>
+                <div class="center">แผนที่</div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
 
-            </ons-page>
-        </template>
+        </ons-page>
+    </template>
 
-        <template id="infoPage.html">
-            <ons-page id="infoPage">
-                <ons-toolbar>
-                    <div class="center">ข้อมูลหลักสูตร</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-                <ons-page id="info">
-                    <script>
-                        let hostname = window.location.origin;
-                        const info = () => {
-                            const name = document.querySelector('#name').value;
-                            const tel = document.querySelector('#tel').value;
-                            const email = document.querySelector('#email').value;
-                            const search = document.querySelector('#search').value;
-                            if (name == ''|| tel == '' || email == ''|| search == ''){
-                                alert('โปรดกรอกข้อมูลให้ครบถ้วน')
-                            }else{
+    <template id="agendaPage.html">
+        <ons-page id="agendaPage">
+            <ons-toolbar>
+                <div class="center">กำหนดการ</div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
 
-                                console.log('1');
-                                var xhr = new XMLHttpRequest();
-                                function myFunction() {
-                                    return xhr.response;
+        </ons-page>
+    </template>
+
+    <template id="infoPage.html">
+        <ons-page id="infoPage">
+            <ons-toolbar>
+                <div class="center">ข้อมูลหลักสูตร</div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
+            <ons-page id="info">
+                <script>
+                    let hostname = window.location.origin;
+                    const info = () => {
+                        const name = document.querySelector('#name').value;
+                        const tel = document.querySelector('#tel').value;
+                        const email = document.querySelector('#email').value;
+                        const search = document.querySelector('#search').value;
+                        if (name == '' || tel == '' || email == '' || search == '') {
+                            alert('โปรดกรอกข้อมูลให้ครบถ้วน');
+                        } else {
+                            var xhr = new XMLHttpRequest();
+                            let htmlString = "";
+                            xhr.onreadystatechange = () => {
+                                if (xhr.readyState === 4) {
+                                    response = JSON.parse(xhr.response);
+
+                                    for (key in response['output']) {
+                                        htmlString +=
+
+                                            '<ons-list>\
+                                                <ons-list-header>TITLE : '+ response['output'][key]['title'] + '</ons-list-header>\
+                                                <ons-list-item>DESCRIPTION : '+ response['output'][key]['description'] + '</ons-list-item>\
+                                                <ons-list-item>LOCATION : '+ response['output'][key]['location'] + '</ons-list-item>\
+                                            </ons-list><br>';
+                                    }
+                                    document.getElementById("result_p").innerHTML = htmlString;
                                 }
-                                document.getElementById("result").innerHTML = myFunction();
-
-                                xhr.open('get', hostname+ '/api/info?name='+name+'&tel='+tel+'&email='+email+'&search='+search, true);
-                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                                xhr.send();
-                                // console.log(hostname+ '/api/info?name='+name+'&tel='+tel+'&email='+email)
-                                alert('ส่งข้อมูลเรียบร้อยแล้ว')
                             }
-                        }   
-                    </script>
-                    <ons-list-item class="input-items">
-                        <div class="left">
-                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                        </div>
-                        <label class="center">
+                            xhr.open('get', hostname + '/api/info?name=' + name + '&tel=' + tel + '&email=' + email + '&search=' + search, true);
+                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                            xhr.send();
+                            alert('ส่งข้อมูลเรียบร้อยแล้ว');
+                        }
+                    }   
+                </script>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
                         <ons-input id="name" float maxlength="20" placeholder="Name" required></ons-input>
                     </label>
-                    </ons-list-item>
-                    <ons-list-item class="input-items">
-                        <div class="left">
-                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                        </div>
-                        <label class="center">
-                        <ons-input id="tel" float maxlength="20" placeholder="Telephone" type="number" required></ons-input>
+                </ons-list-item>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
+                        <ons-input id="tel" float maxlength="20" placeholder="Telephone" type="number" required>
+                        </ons-input>
                         <!-- <input type="tel"> -->
                     </label>
-                    </ons-list-item>
-                    <ons-list-item class="input-items">
-                        <div class="left">
-                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                        </div>
-                        <label class="center">
-                        <ons-input id="email" float maxlength="20" placeholder="Email" type="email" required></ons-input>
+                </ons-list-item>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
+                        <ons-input id="email" float maxlength="20" placeholder="Email" type="email" required>
+                        </ons-input>
                         <!-- <input type="email"> -->
                     </label>
-                    </ons-list-item>
-                    <ons-list-item class="input-items">
-                        <div class="left">
-                          <ons-icon icon="fa-question-circle-o" class="list-item__icon"></ons-icon>
-                        </div>
-                        <label class="center">
+                </ons-list-item>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="fa-question-circle-o" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
                         <ons-search-input id="search" maxlength="20" placeholder="Search" required></ons-search-input>
                     </label>
-                    </ons-list-item>
-                    <section style="margin: 16px">
-                        <ons-button onclick="info()">Submit</ons-button>
-                    </section>
-                    <p id="result"></p>
-                </ons-page>
-                
-                
+                </ons-list-item>
+                <section style="margin: 16px">
+                    <ons-button onclick="info()">Submit</ons-button>
+                </section>
+                <p id="result_p"></p>
             </ons-page>
-        </template>
+        </ons-page>
+    </template>
 
-        <template id="rallyPage.html">
-            <ons-page id="rallyPage">
-                <ons-toolbar>
-                    <div class="center">กิจกรรม</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
+    <template id="rallyPage.html">
+        <ons-page id="rallyPage">
+            <ons-toolbar>
+                <div class="center">กิจกรรม</div>
+                <div class="right">
+                    <ons-toolbar-button onclick="fn.open()">
+                        <ons-icon icon="md-menu"></ons-icon>
+                    </ons-toolbar-button>
+                </div>
+            </ons-toolbar>
 
-            </ons-page>
-        </template>
+        </ons-page>
+    </template>
 
-        <script>
-            document.addEventListener('init', () => {
-                window.fn = {};
-                window.fn.open = function() {
-                    var menu = document.getElementById('menu');
-                    menu.open();
-                };
-                window.fn.load = function(page) {
-                    var content = document.getElementById('content');
-                    var menu = document.getElementById('menu');
-                    content.load(page).then(menu.close.bind(menu));
-                };
-            });
-        </script>
-    </body>
+    <script>
+        document.addEventListener('init', () => {
+            window.fn = {};
+            window.fn.open = function () {
+                var menu = document.getElementById('menu');
+                menu.open();
+            };
+            window.fn.load = function (page) {
+                var content = document.getElementById('content');
+                var menu = document.getElementById('menu');
+                content.load(page).then(menu.close.bind(menu));
+            };
+        });
+    </script>
+</body>
+
 </html>
