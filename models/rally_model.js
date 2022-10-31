@@ -46,5 +46,6 @@ const RallyLogSchema = new Schema({
     }
 });
 
+
 exports.RallyModel = mongoose.model('Rally', RallySchema);
 exports.RallyLogModel = mongoose.model('RallyLog', RallyLogSchema);
