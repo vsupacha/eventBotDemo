@@ -3,6 +3,11 @@ const fs = require('fs');
 const {VisitorModel,LocationModel,VisitorLogModel} = require('../models/visitor_model');
 const {InfoModel,InfoLogModel} = require('../models/info_model');
 
+
+var MongoClient = require('mongodb').MongoClient;
+var url = process.env.MONGODB_URI;
+
+
 // populate information data
 exports.populateInfo = () => {
     fs.readFile('./data/info.json', (err, content) => {
@@ -10,30 +15,25 @@ exports.populateInfo = () => {
         let infos = JSON.parse(content);
         // your code here
 
-        var MongoClient = require('mongodb').MongoClient;
-            var url = process.env.MONGODB_URI;
-
-            MongoClient.connect(url, function(err, db) {
-                if (err) throw err;
-                var dbo = db.db("eventbotdemo");
-                var num_obj =0
-                for (let key in infos){
-                    var myobj = { 
-                        infoId:infos[key],
-                        infoTitle: infos[key]['title'], 
-                        infoDesc: infos[key]['description'], 
-                        locationId: infos[key]['location'],
-                    };
-                    dbo.collection("infos").insertOne(myobj, function(err, res) {
-                        if (err) throw err;
-                        num_obj = num_obj + 1
-                        console.log('inserted')
-                        db.close();
-                    });
-                }
-                console.log('inserted '+num_obj+' row to infos table')
-            });
-
+        MongoClient.connect(url,function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("eventbotdemo");
+            var num_obj =0
+            var collection =  dbo.collection("infos")
+            for (let key in infos){
+                var myobj = { 
+                    infoId:infos[key],
+                    infoTitle: infos[key]['title'], 
+                    infoDesc: infos[key]['description'], 
+                    locationId: infos[key]['location'],
+                };
+                collection.insertOne(myobj, function(err, res) {
+                    if (err) throw err;
+                    num_obj = num_obj + 1;
+                });
+            }
+            console.log('inserted data to infos table');
+        });
     });
 }
 
@@ -49,8 +49,6 @@ exports.handleInfo = (req, res) => {
         console.log(output);
         // TEST INSERT DATA
         if(output[0] == true){
-            var MongoClient = require('mongodb').MongoClient;
-            var url = process.env.MONGODB_URI;
 
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
