@@ -5,31 +5,13 @@
         <title>Event Bot Demo</title>
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+        <link rel="stylesheet" href="./index_map.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
         <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
-        <script type="text/javascript" src="https://api.longdo.com/map/?key=d921919763b40c1570ec059d1b72ba46"></script>
-        <style type="text/css">
-
-            #map {        
-              width: 70%;   
-              height: 100%;
-            }
-
-            #result {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: 1px;
-            height: 80%;
-            margin: auto;
-            border: 4px solid #dddddd;
-            background: #ffffff;
-            overflow: auto;
-            z-index: 2;
-            }
-        </style>
-        
+        <script type="text/javascript" src="https://api.longdo.com/map/?key=d921919763b40c1570ec059d1b72ba46"></script>        
         <script>
             var map;
             var menuBarControl2 = new longdo.MenuBar({
@@ -105,22 +87,10 @@
                     </ons-list>
                 </ons-page>
             </ons-splitter-side>
-            <ons-splitter-content id="content" page="registerPage.html"></ons-splitter-content>
+            <ons-splitter-content id="content" page="mapPage.html"></ons-splitter-content>
         </ons-splitter>
 
-        <template id="registerPage.html">
-            <ons-page id="mapPage">
-                <ons-toolbar>
-                    <div class="center">register</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div> 
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
+    
 
         <template id="mapPage.html">
             
@@ -135,8 +105,14 @@
                     
                 </ons-toolbar>
                 
-                <div id="map"></div>
-                <div id="result"></div>
+                <div class="container">
+                    <div class="map-container">
+                        <div class="map" id="map"></div>
+                    </div>
+                    <div class="result-container">
+                        <div class="result" id="result"></div>
+                    </div>
+                </div>
                 
             
             </ons-page>
