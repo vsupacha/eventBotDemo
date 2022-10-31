@@ -14,11 +14,9 @@
         <script type="text/javascript" src="https://api.longdo.com/map/?key=d921919763b40c1570ec059d1b72ba46"></script>        
         <script>
             var map;
+            var dest;
+            var marker1;
             var menuBarControl2 = new longdo.MenuBar({
-                button: [
-                { label: 'toggle', type: longdo.ButtonType.Toggle },
-                { label: 'push', type: longdo.ButtonType.Push },
-                { label: 'reset', type: longdo.ButtonType.Reset }],
                 dropdown: [
                 { label: 'คณะ', type: longdo.ButtonType.Group },
                 { label: 'คณะวิศวกรรมศาสตร์', value:1 },
@@ -32,38 +30,60 @@
                 map = new longdo.Map({
                     placeholder: document.getElementById('map')
                 });
+                map.Route.mode(longdo.RouteMode.Walk);
                 map.location(longdo.LocationMode.Geolocation);
-                map.Layers.setBase(longdo.Layers.OSM);
+                map.Layers.setBase(longdo.Layers.OSM); 
                 //route
-                map.Route.placeholder(document.getElementById('result'));
-                var result = map.location(); //ตำแหน่งเรา
-                map.Route.add(new longdo.Marker({ lon: result.lon,lat:result.lat}, 
+                //map.Route.placeholder(document.getElementById('result'));
+                //var result = map.location(); //ตำแหน่งเรา
+                navigator.geolocation;
+                navigator.geolocation.getCurrentPosition(current_geo_set, geo_error);
+                //map.Route.add(new longdo.Marker({ lon: result.lon,lat:result.lat}, 
+                map.Ui.add(menuBarControl2);
+            }
+
+            function current_geo_set(position) {
+                marker1 = new longdo.Marker({ lon: position.coords.longitude,lat: position.coords.latitude},   
                 { 
                     title: 'ฉันอยู่ที่นี่', 
                     detail: 'I\'m here' 
                 }
-                ));
-
-                map.Ui.add(menuBarControl2);
+                )
+                map.Route.add(marker1);     
             }
-
+            
             function menuChange(item) {
-
-                if(item.value==1){
-                    var marker1 = new longdo.Marker({ lon: 100.605927, lat: 14.068910});
-                    map.Route.add({ lon: 100.605927, lat: 14.068910 }); // ตำแหน่งที่จะไป
+                if(item.value==1){       
+                    dest = 1             
                 }
                 else if (item.value==2){
-                    var marker1 = new longdo.Marker({ lon: 100.607492 , lat: 14.069043});
+                    dest = 2   
+                }                
+                show_route()
+            }
+            
+            function geo_error(err){
+                console.log("gps does not support");
+            }
+
+            function show_route(){
+                map.Overlays.clear(); // ใส่ clearroute & clear marker เก่า
+                map.Route.clear();
+                //var marker1 = new longdo.Marker({ lon: 100.603252, lat: 14.064884});
+                //console.log("longg " + position.coords.longitude + "  & " + "lati " + position.coords.latitude );
+                map.Route.add(marker1); 
+                if(dest==1){                    
+                    console.log("a1 " );
+                    map.Route.add({ lon: 100.605927, lat: 14.068910 }); // ตำแหน่งที่จะไป
+                }
+                else if (dest==2){
+                    console.log("a2 " );
                     map.Route.add({ lon: 100.607492, lat: 14.069043 });
                 }
-                map.Overlays.clear();
-                map.Overlays.add(marker1);
-                // ใส่ clearroute เก่า
                 map.Route.search();
             }
+
         </script>
-        
 
     </head>
     <body onload="init();">
@@ -252,15 +272,14 @@
                 window.fn.open = function() {
                     var menu = document.getElementById('menu');
                     menu.open();
-                    init();
+                    
                 };
                 window.fn.load = function(page) {
                     var content = document.getElementById('content');
                     var menu = document.getElementById('menu');
-                    //init();
                     content.load(page).then(menu.close.bind(menu));
                 };
-
+                init();
             });
         </script>
     </body>
