@@ -45,12 +45,28 @@ exports.handleMap = (req, res) => {
     console.log("request query",req.query);
     console.log("request body",req.body);
         
-
-    res.status(200).json({status:'OK'});
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("eventbotdemo");
+                var myobj = { 
+                    
+                    fromLoc: req.query.from, 
+                    toLoc: req.query.where, //อ่านจากjson
+                    createdAt: Date.now(),
+                };
+    
+                dbo.collection("MapLog").insertOne(myobj, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document inserted");
+                    db.close();
+                });
+                console.log("insertttttttt",myobj);
+            });
+        
+        res.status(200).json({status:'OK'});
     
     
 }
-
     
     
 
