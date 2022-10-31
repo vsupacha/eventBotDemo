@@ -16,51 +16,52 @@ exports.populateInfo = () => {
 // search for information related to keywords
 exports.handleInfo = (req, res) => {
     console.log(req.query);
-    // console.log(req.body);
     fs.readFile('./data/info.json', (err, content) => {
         if (err) {
             console.log('Error loading info data', err);
             res.status(500).json({status:'Error loading info data'});
         }
         let infos = JSON.parse(content);
-        // console.log(infos);
-        output = find(infos, req.query)
-        if (output[0] == true){
-            res.status(200).json({status:'OK',output:JSON.stringify(infos[output[1]])});
-            console.log('1')
+        output = search(infos, req.query)
+        console.log(output);
+        // TEST INSERT DATA
+        if(output[0] == true){
+            var MongoClient = require('mongodb').MongoClient;
+            var url = process.env.MONGODB_URI;
+
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("eventbotdemo");
+                var myobj = { 
+                    name: req.query.name, 
+                    tel: req.query.tel, 
+                    email: req.query.email,
+                    search: output[2].toString(),
+                };
+                
+                dbo.collection("infologs").insertOne(myobj, function(err, res) {
+                    if (err) throw err;
+                    console.log("1 document inserted");
+                    db.close();
+                });
+            });
         }
-        else{
-            output = search(infos, req.query)
-            res.status(200).json({status:'OK',output:JSON.stringify(output)});
-            console.log('2')
-        }
+
+        res.status(200).json({status:'OK',output:output[1]});
     });
-
-    
 }
 
-function find(data, text) {
-    text = text.search.toUpperCase();
-    for (let key in data){
-        if (data[key]['title'].toUpperCase() == text) {
-            console.log('found')
-            return [true,key];
-        }
-        else{
-            console.log('Not found');
-            return [false,'']
-        }
-    }
-}
 
 function search(data, search_text) {
-    var results = [];
+    var results = {};
+    var list_title_found =[];
     search_text = search_text.search.toUpperCase();
     for (let key in data){
         if (key && data[key]['title'] &&data[key]['title'].toUpperCase().indexOf(search_text) !== -1) {
-            results.push(data[key]['title'])
+            results[key] = data[key]
+            list_title_found.push(key)
             console.log(results)
         }
     }
-    return results;
+    return [true,results,list_title_found];
 }

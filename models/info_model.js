@@ -42,6 +42,22 @@ const InfoLogModel = new Schema({
     createdAt: {
         type: String,
         default: Date.now()
+    },
+    name: {
+        type: String,
+        required: [true, "The userId field is required"]
+    },
+    tel: {
+        type: String,
+        required: [true, "The userId field is required"]
+    },
+    email: {
+        type: String,
+        required: [true, "The userId field is required"]
+    },
+    search: {
+        type: String,
+        required: [true, "The userId field is required"]
     }
 });
 

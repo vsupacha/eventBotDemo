@@ -2,26 +2,106 @@
     "computer_engr": {
         "title": "Computer Engineering",
         "description": "หลักสูตรวิศวกรรมคอมพิวเตอร์",
-        "location": "eng_main_building"
+        "location": "computer_main_building"
     },
     "law_tu":{
         "title": "Faculty of Law",
         "description": "หลักสูตรนิติศาสตรบัณฑิต",
-        "location": ""
+        "location": "law_main_building"
     },
     "tbs_tu":{
         "title": "Faculty of Commerce and Accountancy",
         "description": "หลักสูตรบัญชีบัณฑิต",
-        "location": ""
+        "location": "accountancy_main_building"
     },
     "socaiology_tu":{
         "title": "Faculty of Sociology and Anthropology",
         "description":  "หลักสูตรสังคมวิทยาและมานุษยวิทยาบัณฑิต",
-        "location": ""
+        "location": "socaiology_main_building"
     },
     "arch_tu":{
         "title": "Faculty of Architecture and Planning",
         "description": "หลักสูตรการผังเมืองบัณฑิต",
-        "location": ""
+        "location": "architecture_main_building"
+    },
+    "software_engr":{
+        "title": "Software Engineering",
+        "description": "หลักสูตรวิศวกรรมซอฟต์เเวร์",
+        "location": "software_main_building"
+    },
+    "automotive_engr":{
+        "title": "Automotive Engineering",
+        "description": "หลักสูตรวิศวกรรมยานยนต์",
+        "location": "automotive_main_building"
+    },
+    "industrial_engr":{
+        "title": "Industrial Engineering",
+        "description": "หลักสูตรวิศวกรรมอุตสาหการ",
+        "location": "industrial_main_building"
+    },
+    "industrial_engr_inter":{
+        "title": "International Industrial Engineering",
+        "description": "หลักสูตรวิศวกรรมอุตสาหการนานาชาติ",
+        "location": "industrial_inter_building"
+    },
+    "chemical_engr":{
+        "title": "Chemical Engineering",
+        "description": "หลักสูตรวิศวกรรมเคมี",
+        "location": "chemical_main_building"
+    },
+   "chemical_engr_inter":{
+        "title": "International Chemical Engineering",
+        "description": "หลักสูตรวิศวกรรมเคมีนานาชาติ",
+        "location": "chemical_inter_building"
+    },
+    "mechanical_engr":{
+        "title": "Mechanical Engineering",
+        "description": "หลักสูตรวิศวกรรมเครื่องกล",
+        "location": "mechanical_main_building"
+    },
+    "mechanical_engr_inter":{
+        "title": "International Mechanical Engineering",
+        "description": "หลักสูตรวิศวกรรมเครื่องกลนานาชาติ",
+        "location": "mechanical_inter_building"
+    },
+    "vtech_engr":{
+        "title": "Vehicle Technology Engineering",
+        "description": "หลักสูตรวิศวกรรมเทคโนโลยียานยนต์",
+        "location": "vehicle_main_building"
+    },
+    "civil_engr":{
+        "title": "Civil Engineering",
+        "description": "หลักสูตรวิศวกรรมโยธา",
+        "location": "civil_main_building"
+    },
+    "civil_engr_inter":{
+        "title": "International Civil Engineering",
+        "description": "หลักสูตรวิศวกรรมโยธานานาชาติ",
+        "location": "civil_inter_building"
+    },
+    "ebm_engr":{
+        "title": "Civil Engineering and Construction Management",
+        "description": "หลักสูตรวิศวกรรมโยธาและการบริหารการก่อสร้าง",
+        "location": "ebm_main_building"
+    },
+    "electrical_engr":{
+        "title": "Electrical Engineering",
+        "description": "หลักสูตรวิศวกรรมไฟฟ้า",
+        "location": "electrical_main_building"
+    },
+    "electrical_engr_inter":{
+        "title": "International Electrical Engineering",
+        "description": "หลักสูตรวิศวกรรมไฟฟ้านานาชาติ",
+        "location": "electrical_inter_building"
+    },
+    "ipen_engr":{
+        "title": "Industrial Electrical Engineering",
+        "description": "หลักสูตรวิศวกรรมไฟฟ้าและอุตสาหการ",
+        "location": "ipen_main_building"
+    },
+    "medical_engr":{
+        "title": "Medical Engineering",
+        "description": "หลักสูตรวิศวกรรมทางการเเพทย์",
+        "location": "medical_main_building"
     }
 }
