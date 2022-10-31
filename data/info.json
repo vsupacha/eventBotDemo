@@ -3,5 +3,25 @@
         "title": "Computer Engineering",
         "description": "หลักสูตรวิศวกรรมคอมพิวเตอร์",
         "location": "eng_main_building"
+    },
+    "law_tu":{
+        "title": "Faculty of Law",
+        "description": "หลักสูตรนิติศาสตรบัณฑิต",
+        "location": ""
+    },
+    "tbs_tu":{
+        "title": "Faculty of Commerce and Accountancy",
+        "description": "หลักสูตรบัญชีบัณฑิต",
+        "location": ""
+    },
+    "socaiology_tu":{
+        "title": "Faculty of Sociology and Anthropology",
+        "description":  "หลักสูตรสังคมวิทยาและมานุษยวิทยาบัณฑิต",
+        "location": ""
+    },
+    "arch_tu":{
+        "title": "Faculty of Architecture and Planning",
+        "description": "หลักสูตรการผังเมืองบัณฑิต",
+        "location": ""
     }
 }

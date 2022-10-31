@@ -39,7 +39,21 @@ fs.readFile('./data/location.json', (err, content) => {
     // your code here
     for (const id in locations) {
         console.log(id);
-        console.log(locations[id])
+        (async () => {
+            console.log(locations[id]);
+            await LocationModel.findOneAndUpdate(
+                { locationId: id },
+                { 
+                    locationName: locations[id].name, 
+                    locationLat: locations[id].lat,
+                    locationLon: locations[id].lon,
+                    locationBeacon: locations[id].beacon,
+                    updatedAt: Date.now() 
+                },
+                { upsert: true }
+            );
+            console.log('Location data updated');
+        })();
     }
 });
 
@@ -85,6 +99,7 @@ async function handleEvent(event) {
                 default:
                     throw new Error(`Unknown message: ${JSON.stringify(message)}`);
             }
+            break;
         case 'follow':
             await VisitorModel.findOneAndUpdate(
                 { userId: event.source.userId },
@@ -105,6 +120,16 @@ async function handleEvent(event) {
         case 'postback':
             return console.log('Got Postback event');
         case 'beacon':
+            if (event.beacon.type === 'enter') {
+                const location = await LocationModel.findOne({ locationBeacon: event.beacon.hwid });
+                if (location) {
+                    console.log(location);
+                    await VisitorLogModel.create({
+                        userId: event.source.userId,
+                        locationId: location.locationId,
+                    });
+                }
+            }
             return console.log('Got Beacon event');
         default:
             throw new Error(`Unknown event: ${JSON.stringify(event)}`);
