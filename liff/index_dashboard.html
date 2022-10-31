@@ -7,15 +7,39 @@
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
         <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
         <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        
     </head>
     <body>
-        
+        <div id='myDiv'>
+            <!-- Plotly chart will be drawn inside this DIV -->
+        </div>
+
+    <p id="demo"></p>
     </body> 
 
     <script>
         document.addEventListener('init', () => {
             // your code here
         });
+        
+        var data = [{
+            type: "pie",
+            values: [10, 50],
+            labels: ["Followed", "Unfollowed"],
+            textinfo: "label+percent",
+            textposition: "outside",
+            automargin: true
+        }];
+
+        var layout = {
+            title: 'Visitors',
+            height: 400,
+            width: 600,
+            showlegend: false,
+        };
+
+        Plotly.newPlot('myDiv', data, layout);
+        
     </script>
-</body>
 </html>
