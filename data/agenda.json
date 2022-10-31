@@ -5,5 +5,12 @@
         "location": "eng_main_building",
         "start": "2022-11-16T10:00:00",
         "end": "2022-11-16T11:00:00"
+    },
+    "elentriction_engr_bootcamp": {
+        "title": "ค่ายวิศวไฟฟ้า",
+        "description": "เรียนรู้สายงานของวิศวไฟฟ้า",
+        "location": "eng_main_building",
+        "start": "2022-11-16T10:00:00",
+        "end": "2022-11-16T11:00:00"
     }
 }
