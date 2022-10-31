@@ -127,6 +127,7 @@ async function handleEvent(event) {
                     await VisitorLogModel.create({
                         userId: event.source.userId,
                         locationId: location.locationId,
+                        createdAt: Date.now()
                     });
                 }
             }
