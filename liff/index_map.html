@@ -7,8 +7,85 @@
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
         <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
         <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+        <script type="text/javascript" src="https://api.longdo.com/map/?key=d921919763b40c1570ec059d1b72ba46"></script>
+        <style type="text/css">
+
+            #map {        
+              width: 70%;   
+              height: 100%;
+            }
+
+            #result {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            width: 1px;
+            height: 80%;
+            margin: auto;
+            border: 4px solid #dddddd;
+            background: #ffffff;
+            overflow: auto;
+            z-index: 2;
+            }
+        </style>
+        
+        <script>
+            var map;
+            var menuBarControl2 = new longdo.MenuBar({
+                button: [
+                { label: 'toggle', type: longdo.ButtonType.Toggle },
+                { label: 'push', type: longdo.ButtonType.Push },
+                { label: 'reset', type: longdo.ButtonType.Reset }],
+                dropdown: [
+                { label: 'คณะ', type: longdo.ButtonType.Group },
+                { label: 'คณะวิศวกรรมศาสตร์', value:1 },
+                { label: 'SIIT', value:2 },
+                { label: 'คณะสหเวช', value:3 },
+                { label: 'คณะแพทย์', value:4 },
+                ],
+                dropdownLabel: 'เลือกคณะ', change: menuChange 
+            });
+            function init() {
+                map = new longdo.Map({
+                    placeholder: document.getElementById('map')
+                });
+                map.location(longdo.LocationMode.Geolocation);
+                map.Layers.setBase(longdo.Layers.OSM);
+                //route
+                map.Route.placeholder(document.getElementById('result'));
+                var result = map.location(); //ตำแหน่งเรา
+                map.Route.add(new longdo.Marker({ lon: result.lon,lat:result.lat}, 
+                { 
+                    title: 'ฉันอยู่ที่นี่', 
+                    detail: 'I\'m here' 
+                }
+                ));
+
+                map.Ui.add(menuBarControl2);
+            }
+
+            function menuChange(item) {
+
+                if(item.value==1){
+                    var marker1 = new longdo.Marker({ lon: 100.605927, lat: 14.068910});
+                    map.Route.add({ lon: 100.605927, lat: 14.068910 }); // ตำแหน่งที่จะไป
+                }
+                else if (item.value==2){
+                    var marker1 = new longdo.Marker({ lon: 100.607492 , lat: 14.069043});
+                    map.Route.add({ lon: 100.607492, lat: 14.069043 });
+                }
+                map.Overlays.clear();
+                map.Overlays.add(marker1);
+                // ใส่ clearroute เก่า
+                map.Route.search();
+            }
+        </script>
+        
+
     </head>
-    <body>
+    <body onload="init();">
+        
         <ons-splitter>
             <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
                 <ons-page>
@@ -31,10 +108,10 @@
             <ons-splitter-content id="content" page="registerPage.html"></ons-splitter-content>
         </ons-splitter>
 
-        <template id="mapPage.html">
+        <template id="registerPage.html">
             <ons-page id="mapPage">
                 <ons-toolbar>
-                    <div class="center">แผนที่</div>
+                    <div class="center">register</div>
                     <div class="right">
                         <ons-toolbar-button onclick="fn.open()">
                             <ons-icon icon="md-menu"></ons-icon>
@@ -42,6 +119,26 @@
                     </div> 
                 </ons-toolbar>
 
+            </ons-page>
+        </template>
+
+        <template id="mapPage.html">
+            
+            <ons-page id="mapPage">
+                <ons-toolbar>
+                    <div class="center">แผนที่</div>
+                    <div class="right">
+                        <ons-toolbar-button onclick="fn.open()">
+                            <ons-icon icon="md-menu"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                    
+                </ons-toolbar>
+                
+                <div id="map"></div>
+                <div id="result"></div>
+                
+            
             </ons-page>
         </template>
 
@@ -55,7 +152,7 @@
                         </ons-toolbar-button>
                     </div>
                 </ons-toolbar>
-
+                
             </ons-page>
         </template>
 
@@ -93,12 +190,15 @@
                 window.fn.open = function() {
                     var menu = document.getElementById('menu');
                     menu.open();
+                    init();
                 };
                 window.fn.load = function(page) {
                     var content = document.getElementById('content');
                     var menu = document.getElementById('menu');
+                    //init();
                     content.load(page).then(menu.close.bind(menu));
                 };
+
             });
         </script>
     </body>
