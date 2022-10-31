@@ -69,7 +69,74 @@
                         </ons-toolbar-button>
                     </div>
                 </ons-toolbar>
+                <ons-page id="info">
+                    <script>
+                        let hostname = window.location.origin;
+                        const info = () => {
+                            const name = document.querySelector('#name').value;
+                            const tel = document.querySelector('#tel').value;
+                            const email = document.querySelector('#email').value;
+                            const search = document.querySelector('#search').value;
+                            if (name == ''|| tel == '' || email == ''|| search == ''){
+                                alert('โปรดกรอกข้อมูลให้ครบถ้วน')
+                            }else{
 
+                                console.log('1');
+                                var xhr = new XMLHttpRequest();
+                                function myFunction() {
+                                    return xhr.response;
+                                }
+                                document.getElementById("result").innerHTML = myFunction();
+
+                                xhr.open('get', hostname+ '/api/info?name='+name+'&tel='+tel+'&email='+email+'&search='+search, true);
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                                xhr.send();
+                                // console.log(hostname+ '/api/info?name='+name+'&tel='+tel+'&email='+email)
+                                alert('ส่งข้อมูลเรียบร้อยแล้ว')
+                            }
+                        }   
+                    </script>
+                    <ons-list-item class="input-items">
+                        <div class="left">
+                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                        </div>
+                        <label class="center">
+                        <ons-input id="name" float maxlength="20" placeholder="Name" required></ons-input>
+                    </label>
+                    </ons-list-item>
+                    <ons-list-item class="input-items">
+                        <div class="left">
+                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                        </div>
+                        <label class="center">
+                        <ons-input id="tel" float maxlength="20" placeholder="Telephone" type="number" required></ons-input>
+                        <!-- <input type="tel"> -->
+                    </label>
+                    </ons-list-item>
+                    <ons-list-item class="input-items">
+                        <div class="left">
+                          <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                        </div>
+                        <label class="center">
+                        <ons-input id="email" float maxlength="20" placeholder="Email" type="email" required></ons-input>
+                        <!-- <input type="email"> -->
+                    </label>
+                    </ons-list-item>
+                    <ons-list-item class="input-items">
+                        <div class="left">
+                          <ons-icon icon="fa-question-circle-o" class="list-item__icon"></ons-icon>
+                        </div>
+                        <label class="center">
+                        <ons-search-input id="search" maxlength="20" placeholder="Search" required></ons-search-input>
+                    </label>
+                    </ons-list-item>
+                    <section style="margin: 16px">
+                        <ons-button onclick="info()">Submit</ons-button>
+                    </section>
+                    <p id="result"></p>
+                </ons-page>
+                
+                
             </ons-page>
         </template>
 
