@@ -8,14 +8,37 @@ exports.populateInfo = () => {
     fs.readFile('./data/info.json', (err, content) => {
         if (err) return console.log('Error loading info data', err);
         let infos = JSON.parse(content);
-        console.log(infos);
         // your code here
+
+        var MongoClient = require('mongodb').MongoClient;
+            var url = process.env.MONGODB_URI;
+
+            MongoClient.connect(url, function(err, db) {
+                if (err) throw err;
+                var dbo = db.db("eventbotdemo");
+                var num_obj =0
+                for (let key in infos){
+                    var myobj = { 
+                        infoId:infos[key],
+                        infoTitle: infos[key]['title'], 
+                        infoDesc: infos[key]['description'], 
+                        locationId: infos[key]['location'],
+                    };
+                    dbo.collection("infos").insertOne(myobj, function(err, res) {
+                        if (err) throw err;
+                        num_obj = num_obj + 1
+                        console.log('inserted')
+                        db.close();
+                    });
+                }
+                console.log('inserted '+num_obj+' row to infos table')
+            });
+
     });
 }
 
 // search for information related to keywords
 exports.handleInfo = (req, res) => {
-    console.log(req.query);
     fs.readFile('./data/info.json', (err, content) => {
         if (err) {
             console.log('Error loading info data', err);
@@ -38,7 +61,7 @@ exports.handleInfo = (req, res) => {
                     email: req.query.email,
                     search: output[2].toString(),
                 };
-                
+    
                 dbo.collection("infologs").insertOne(myobj, function(err, res) {
                     if (err) throw err;
                     console.log("1 document inserted");
@@ -46,7 +69,6 @@ exports.handleInfo = (req, res) => {
                 });
             });
         }
-
         res.status(200).json({status:'OK',output:output[1]});
     });
 }
