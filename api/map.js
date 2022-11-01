@@ -17,7 +17,7 @@ exports.populateMap = () => {
         MongoClient.connect(url,function(err, db) {
             if (err) throw err;
             var dbo = db.db("eventbotdemo");
-            var num_obj =0
+            var obj_count =0
             var collection =  dbo.collection("location")
             for (let key in location){
                 var loc_obj = { 
@@ -29,7 +29,7 @@ exports.populateMap = () => {
                 };
                 collection.insertOne(loc_obj, function(err, res) {
                     if (err) throw err;
-                    num_obj = num_obj + 1;
+                    obj_count = obj_count + 1;
                 });
                 console.log('test obj',loc_obj)
 
@@ -48,19 +48,19 @@ exports.handleMap = (req, res) => {
             MongoClient.connect(url, function(err, db) {
                 if (err) throw err;
                 var dbo = db.db("eventbotdemo");
-                var myobj = { 
+                var locLog = { 
                     
                     fromLoc: req.query.from, 
-                    toLoc: req.query.where, //อ่านจากjson
+                    toLoc: req.query.where, 
                     createdAt: Date.now(),
                 };
     
-                dbo.collection("MapLog").insertOne(myobj, function(err, res) {
+                dbo.collection("MapLog").insertOne(locLog, function(err, res) {
                     if (err) throw err;
-                    console.log("1 document inserted");
+                    console.log("insert data in mapLog");
                     db.close();
                 });
-                console.log("insertttttttt",myobj);
+                console.log("insert",locLog);
             });
         
         res.status(200).json({status:'OK'});

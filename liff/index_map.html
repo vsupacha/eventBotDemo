@@ -19,13 +19,11 @@
             var Here;
             var menuBarControl2 = new longdo.MenuBar({
                 dropdown: [
-                { label: 'คณะ', type: longdo.ButtonType.Group },
-                { label: 'คณะวิศวกรรมศาสตร์', value:1 },
-                { label: 'SIIT', value:2 },
-                { label: 'คณะสหเวช', value:3 },
-                { label: 'คณะแพทย์', value:4 },
+                { label: 'สถานที่', type: longdo.ButtonType.Group },
+                { label: 'อาคารอำนวยการ คณะวิศวกรรมศาสตร์', value:1 },
+                { label: 'อาคารวิจัย คณะวิศวกรรมศาสตร์', value:2 },
                 ],
-                dropdownLabel: 'เลือกคณะ', change: menuChange 
+                dropdownLabel: 'เลือกสถานที่', change: menuChange 
             });
             function init() {
                 map = new longdo.Map({
@@ -41,12 +39,7 @@
                 navigator.geolocation.getCurrentPosition(current_geo_set, geo_error);
                 //map.Route.add(new longdo.Marker({ lon: result.lon,lat:result.lat}, 
                 map.Ui.add(menuBarControl2);
-                /*
-                map.Event.bind('search', function() {
-                    var result = map.search('sear'); // Get the zoom value
-                    console.log(result);
-                });
-                */
+               
             }
 
             function current_geo_set(position) {
@@ -56,7 +49,7 @@
                     detail: 'I\'m here' 
                 }
                 )
-                Here = "lon: " + position.coords.longitude + "lat: " + position.coords.latitude
+                Here = "lon: " + position.coords.longitude + " , " + "lat: " + position.coords.latitude
                 map.Route.add(marker1);     
             }
             
@@ -70,7 +63,7 @@
                 }                
                 show_route()
                 api(item.label);
-                console.log("apii iiiiiiiiii")
+                console.log("api")
             }
             
             function geo_error(err){
@@ -85,39 +78,22 @@
                 map.Route.add(marker1); 
                 if(dest==1){                    
                     console.log("a1 " );
-                    map.Route.add({ lon: 100.605927, lat: 14.068910 }); // ตำแหน่งที่จะไป
+                    map.Route.add({ lon: 100.60596256177631, lat: 14.069177849944213 }); // ตำแหน่งที่จะไป
                 }
                 else if (dest==2){
                     console.log("a2 " );
-                    map.Route.add({ lon: 100.607492, lat: 14.069043 });
+                    map.Route.add({ lon: 100.60535117337776, lat: 14.069566717097253 });
                 }
                 map.Route.search();
             }
 
             function api(params) {
                 var xhr = new XMLHttpRequest();
-                            let htmlString = "";
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === 4) {
-                                    response = JSON.parse(xhr.response);
-
-                                    for (key in response['output']) {
-                                        htmlString +=
-
-                                            '<ons-list>\
-                                                <ons-list-header>TITLE : '+ response['output'][key]['title'] + '</ons-list-header>\
-                                                <ons-list-item>DESCRIPTION : '+ response['output'][key]['description'] + '</ons-list-item>\
-                                                <ons-list-item>LOCATION : '+ response['output'][key]['location'] + '</ons-list-item>\
-                                            </ons-list><br>';
-                                    }
-                                    document.getElementById("result_p").innerHTML = htmlString;
-                                }
-                            }
-                            xhr.open('get', window.location.origin + '/api/map?where=' + params +'&from=' + Here , true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                            xhr.send();
-                            console.log("--------------------------send -----------------");
-                            alert('ส่งข้อมูลเรียบร้อยแล้ว');
+                xhr.open('get', window.location.origin + '/api/map?where=' + params +'&from=' + Here , true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+                xhr.send();
+                console.log("--------------------------send -----------------");
+                alert('send data');
             }
 
         </script>
