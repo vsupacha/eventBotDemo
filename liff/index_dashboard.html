@@ -11,25 +11,55 @@
         
     </head>
     <body>
+
+        <h3>LoggingFile Dropdown</h3>
+        <p>Click on the button to open the dropdown menu.</p>
+
+
+        <!-- <div class="dropdown">
+            <button onclick="myFunction()" class="dropbtn">Drop</button>
+            <div id="myDropdown" class="dropdown-content">
+                <a href="#Agenda">
+                    <button onlclick="agenda_alert()">
+                        Agenda Logging
+                </button></a>
+                <a href="#Info">
+                    <button onlclick="info_alert()">
+                        Info Logging
+                </button></a>
+                <a href="#map">
+                    <button onlclick="map_alert()">
+                        map Logging
+                </button></a>
+                <a href="#rally">
+                    <button onlclick="rally_alert()">
+                        rally Logging
+                </button></a>
+            </div>
+        </div>  -->
+
+        <form action="/">
+            <label for="log">Choose LoggingFile:</label>
+            <select name="log" id="log">
+              <option value="volvo">agenda</option>
+              <option value="saab">info</option>
+              <option value="opel">map</option>
+              <option value="audi">rally</option>
+            </select>
+            <br><br>
+            <input type="submit" value="Submit">
+        </form>
+
+
         <div id='myDiv'>
             <!-- Plotly chart will be drawn inside this DIV -->
         </div>
 
-    <p id="demo"></p>
+
     </body> 
 
     <script>
-        // const request = new XMLHttpRequest();
-        // const url = MONGODB_URI
 
-        // request.open("GET", url);
-        // request.responseType = "json";
-        // request.onload = showResult;
-        // request.send();
-
-        // function showResult(){
-        //     console.dir(request.response);
-        // }
         
         document.addEventListener('init', () => {
             // your code here
@@ -53,5 +83,41 @@
 
         Plotly.newPlot('myDiv', data, layout);
         
+        const {VisitorModel,LocationModel,VisitorLogModel} = require('../models/visitor_model');
+        const {InfoModel,InfoLogModel} = require('../models/info_model');
+        const {AgendaModel,AgendaLogModel} = require('../models/agenda_model');
+        const {MapLogModel} = require('../models/map_model');
+        const {RallyModel,RallyLogModel} = require('../models/rally_model');
+
+        var MongoClient = require('mongodb').MongoClient;
+        var url = process.env.MONGODB_URI;
+
+        MongoClient.connect(url,function(err, db) {
+            if (err) throw err;
+            var db_test = db.db("eventbotdemo");
+            console.log(db_test.collection())
+        });
+
+        
+        document.addEventListener('init', () => {
+            // your code here
+        });
+
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                    openDropdown.classList.remove('show');
+                    }
+                }
+                }
+        }    
+    
     </script>
 </html>
