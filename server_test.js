@@ -39,31 +39,42 @@ locationAPI.populateLocation();
 app.use(bodyParser.json());
 
 app.get('/api/location', (req,res) => {
+    console.log("/api/location request query: ", req.query);
+    console.log("/api/location request body: ", req.body);
     locationAPI.handleLocation(req, res);
 });
 
 app.get('/api/map', (req,res) => {
+    console.log("/api/map request query: ", req.query);
+    console.log("/api/map request body: ", req.body);
     mapAPI.handleMap(req, res);
 });
 
 /*
 app.get('/api/agenda', (req,res) => {
+    console.log("/api/agenda request query: ", req.query);
+    console.log("/api/agenda request body: ", req.body);
     agendaAPI.handleAgenda(req, res);
 });
 
 app.get('/api/info', (req,res) => {
+    console.log("/api/info request query: ", req.query);
+    console.log("/api/info request body: ", req.body);
     infoAPI.handleInfo(req, res);
 });
 
 app.get('/api/rally', (req,res) => {
+    console.log("/api/rally request query: ", req.query);
+    console.log("/api/rally request body: ", req.body);
     rallyAPI.handleRally(req, res);
 });
 */
 
 // API test
+
 app.get('/test/inject', (req, res) => {
-    console.log('Query params:' + req.query);
-    console.log('Body params:' + req.body);
+    console.log("/test/inject request query: " + req.query);
+    console.log("/test/inject request body: " + req.body);
     var resp = {status:"ok"};
     
     if (Object.keys(req.query).length > 0) {
