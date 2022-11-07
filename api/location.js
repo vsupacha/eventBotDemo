@@ -43,8 +43,6 @@ exports.lookupGeolocation = (lat, lon) => {
 
 // handle location request
 exports.handleLocation = async (req, res) => {
-    console.log("request query: ", req.query);
-    console.log("request body: ", req.body);
     var resp;
 
     if (Object.keys(req.query).length > 0) {

@@ -27,8 +27,6 @@ exports.populateRally = () => {
 
 // record rally activities
 exports.handleRally = async (req, res) => {
-  console.log(req.query);
-  console.log(req.body);
   let msg = { status: "OK" };
   const uid = req.query.uid;
   const qr_code_value = req.query.qrCode;

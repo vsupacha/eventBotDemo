@@ -17,9 +17,7 @@ exports.populateInfo = () => {
 
 // search for information related to keywords
 exports.handleInfo = (req, res) => {
-    console.log(req.query);
-    console.log(req.body);
-    resp = {}
+    var resp = {}
 
     // Q2.2 extract userId and keywords (as Array) from req.body 
     

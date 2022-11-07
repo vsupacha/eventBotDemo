@@ -17,9 +17,7 @@ exports.populateAgenda = () => {
 
 // show agenda based on location and time
 exports.handleAgenda = async (req, res) => {
-    console.log(req.query);
-    console.log(req.body);
-    resp = {}
+    var resp = {}
 
     // Q1.2 extract userId from req.body and find last location in VisitorLog
 

@@ -43,8 +43,8 @@
         </template>
 
         <script>
+            const userId = 'myself';
             var map;
-            var dest;
             var here_marker;
 
             // get current geolocation
@@ -92,6 +92,11 @@
                             }
                         ));
                         map.Route.search();
+                    });
+                fetch('/api/map?' + new URLSearchParams({userId: userId, locationId: selected.value}))
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result);
                     });
             }
 
