@@ -2,18 +2,14 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const MapLogSchema = new Schema({
+const RallyLogSchema = new Schema({
     userId: {
         type: String,
         required: [true, "The userId field is required"]
     },
-    fromLoc: {
+    rallyId: {
         type: String,
-        required: [true, "The fromLoc field is required"]
-    },
-    toLoc: {
-        type: String,
-        required: [true, "The toLoc field is required"]
+        required: [true, "The userId field is required"]
     },
     // your data model here
     createdAt: {
@@ -22,4 +18,5 @@ const MapLogSchema = new Schema({
     }
 });
 
-exports.MapLogModel = mongoose.model('MapLog', MapLogSchema);
+
+module.exports = new mongoose.model('rally_log', RallyLogSchema);

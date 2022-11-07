@@ -30,22 +30,5 @@ const RallySchema = new Schema({
     }
 });
 
-const RallyLogSchema = new Schema({
-    userId: {
-        type: String,
-        required: [true, "The userId field is required"]
-    },
-    rallyId: {
-        type: String,
-        required: [true, "The userId field is required"]
-    },
-    // your data model here
-    createdAt: {
-        type: String,
-        default: Date.now()
-    }
-});
 
-
-exports.RallyModel = mongoose.model('Rally', RallySchema);
-exports.RallyLogModel = mongoose.model('RallyLog', RallyLogSchema);
+module.exports = new mongoose.model('rally', RallySchema);

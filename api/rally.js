@@ -4,8 +4,8 @@ const {
   VisitorModel,
   LocationModel,
   VisitorLogModel,
-} = require("../models/visitor_model");
-const { RallyModel, RallyLogModel } = require("../models/rally_model");
+} = require("../models/visitor");
+const { RallyModel, RallyLogModel } = require("../models/rally");
 
 // populate information data
 exports.populateRally = () => {

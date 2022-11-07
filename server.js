@@ -1,18 +1,17 @@
 'use strict';
 
 const express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const line = require('@line/bot-sdk');
 const ngrok = require('ngrok');
-const fs = require('fs');
 
-const {VisitorModel,LocationModel,VisitorLogModel} = require('./models/visitor_model');
-
-const agendaObj = require('./api/agenda');
-const mapObj = require('./api/map');
-const infoObj = require('./api/info');
-const rallyObj = require('./api/rally');
+const visitorAPI = require('./api/visitor');
+const locationAPI = require('./api/location');
+const agendaAPI = require('./api/agenda');
+const mapAPI = require('./api/map');
+const infoAPI = require('./api/info');
+const rallyAPI = require('./api/rally');
 
 require('dotenv').config();
 
@@ -31,36 +30,13 @@ app.use('/liff', express.static('liff'));
 
 // MongoDB via Mongoose
 mongoose.connect(process.env.MONGODB_URI, {autoIndex: true});
-// populate location data
-fs.readFile('./data/location.json', (err, content) => {
-    if (err) return console.log('Error loading location data', err);
-    let locations = JSON.parse(content);
-    console.log(locations);
-    // your code here
-    for (const id in locations) {
-        console.log(id);
-        (async () => {
-            console.log(locations[id]);
-            await LocationModel.findOneAndUpdate(
-                { locationId: id },
-                { 
-                    locationName: locations[id].name, 
-                    locationLat: locations[id].lat,
-                    locationLon: locations[id].lon,
-                    locationBeacon: locations[id].beacon,
-                    updatedAt: Date.now() 
-                },
-                { upsert: true }
-            );
-            console.log('Location data updated');
-        })();
-    }
-});
 
-agendaObj.populateAgenda();
-infoObj.populateInfo();
-mapObj.populateMap();
-rallyObj.populateRally();
+// populate data into MongoDB
+locationAPI.populateLocation();
+agendaAPI.populateAgenda();
+infoAPI.populateInfo();
+mapAPI.populateMap();
+rallyAPI.populateRally();
 
 // LINE
 const lineClient = new line.Client(line_cfg);
@@ -101,17 +77,10 @@ async function handleEvent(event) {
             }
             break;
         case 'follow':
-            await VisitorModel.findOneAndUpdate(
-                { userId: event.source.userId },
-                { userStatus: true, updatedAt: Date.now() },
-                { upsert: true }
-            )
+            visitorAPI.activateVisitor(event.source.userId);
             return console.log('Got Follow event');
         case 'unfollow':
-            await VisitorModel.updateOne(
-                { userId: event.source.userId }, 
-                { userStatus: false, updatedAt: Date.now() }
-            ).lean();
+            visitorAPI.deactivateVisitor(event.source.userId);
             return console.log('Got Unfollow event');
         case 'join':
             return console.log('Got Join event');
@@ -121,14 +90,9 @@ async function handleEvent(event) {
             return console.log('Got Postback event');
         case 'beacon':
             if (event.beacon.type === 'enter') {
-                const location = await LocationModel.findOne({ locationBeacon: event.beacon.hwid });
+                const location = locationAPI.lookupBeacon(event.beacon.hwid);
                 if (location) {
-                    console.log(location);
-                    await VisitorLogModel.create({
-                        userId: event.source.userId,
-                        locationId: location.locationId,
-                        createdAt: Date.now()
-                    });
+                    visitorAPI.updateVisitorLog(event.source.userId, location.locationId);
                 }
             }
             return console.log('Got Beacon event');
@@ -143,19 +107,19 @@ async function handleEvent(event) {
 app.use(bodyParser.json());
 
 app.get('/api/agenda', (req,res) => {
-    agendaObj.handleAgenda(req, res);
+    agendaAPI.handleAgenda(req, res);
 });
 
 app.get('/api/info', (req,res) => {
-    infoObj.handleInfo(req, res);
+    infoAPI.handleInfo(req, res);
 });
 
 app.get('/api/map', (req,res) => {
-    mapObj.handleMap(req, res);
+    mapAPI.handleMap(req, res);
 });
 
 app.get('/api/rally', (req,res) => {
-    rallyObj.handleRally(req, res);
+    rallyAPI.handleRally(req, res);
 });
 
 // Runtime

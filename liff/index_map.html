@@ -5,225 +5,32 @@
         <title>Event Bot Demo</title>
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
         <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-       
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;700&display=swap" rel="stylesheet">
         <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
         <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
         <script type="text/javascript" src="https://api.longdo.com/map/?key=d921919763b40c1570ec059d1b72ba46"></script>        
-        <script>
-            var map;
-            var dest;
-            var marker1;
-            var Here;
-            var menuBarControl2 = new longdo.MenuBar({
-                dropdown: [
-                { label: 'สถานที่', type: longdo.ButtonType.Group },
-                { label: 'อาคารอำนวยการ คณะวิศวกรรมศาสตร์', value:1 },
-                { label: 'อาคารวิจัย คณะวิศวกรรมศาสตร์', value:2 },
-                ],
-                dropdownLabel: 'เลือกสถานที่', change: menuChange 
-            });
-            function init() {
-                map = new longdo.Map({
-                    placeholder: document.getElementById('map')
-                });
-                map.Route.mode(longdo.RouteMode.Walk);
-                map.location(longdo.LocationMode.Geolocation);
-                map.Layers.setBase(longdo.Layers.OSM); 
-                //route
-                map.Route.placeholder(document.getElementById('result'));
-                //var result = map.location(); //ตำแหน่งเรา
-                navigator.geolocation;
-                navigator.geolocation.getCurrentPosition(current_geo_set, geo_error);
-                //map.Route.add(new longdo.Marker({ lon: result.lon,lat:result.lat}, 
-                map.Ui.add(menuBarControl2);
-               
-            }
-
-            function current_geo_set(position) {
-                marker1 = new longdo.Marker({ lon: position.coords.longitude,lat: position.coords.latitude},   
-                { 
-                    title: 'ฉันอยู่ที่นี่', 
-                    detail: 'I\'m here' 
-                }
-                )
-                Here = "lon: " + position.coords.longitude + " , " + "lat: " + position.coords.latitude
-                map.Route.add(marker1);     
-            }
-            
-            function menuChange(item) {
-                if(item.value==1){       
-                    dest = 1
-                           
-                }
-                else if (item.value==2){
-                    dest = 2   
-                }                
-                show_route()
-                api(item.label);
-                console.log("api")
-            }
-            
-            function geo_error(err){
-                console.log("gps does not support");
-            }
-
-            function show_route(){
-                map.Overlays.clear(); // ใส่ clearroute & clear marker เก่า
-                map.Route.clear();
-                //var marker1 = new longdo.Marker({ lon: 100.603252, lat: 14.064884});
-                //console.log("longg " + position.coords.longitude + "  & " + "lati " + position.coords.latitude );
-                map.Route.add(marker1); 
-                if(dest==1){                    
-                    console.log("a1 " );
-                    map.Route.add({ lon: 100.60596256177631, lat: 14.069177849944213 }); // ตำแหน่งที่จะไป
-                }
-                else if (dest==2){
-                    console.log("a2 " );
-                    map.Route.add({ lon: 100.60535117337776, lat: 14.069566717097253 });
-                }
-                map.Route.search();
-            }
-
-            function api(params) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('get', window.location.origin + '/api/map?where=' + params +'&from=' + Here , true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                xhr.send();
-                console.log("--------------------------send -----------------");
-                alert('send data');
-            }
-
-        </script>
-
+        <link rel="stylesheet" href="/liff/css/map.css">
     </head>
-    <body onload="init();">
-        <style type="text/css">
-            .body{
-                font-family: 'Kanit', sans-serif;
-            }
-
-            .container{
-                width: 100%;
-                height: 100%;
-            }
-
-
-            .map-container{
-                width: 60%;
-                height: 80%;
-                margin-right: 2.5%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                border-radius: 25px;
-                background-color: white;
-                box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-            }
-
-            .map {        
-                width: 95%;   
-                height: 95%;
-                box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
-            }
-
-
-            .result-container{
-                width: 30%;
-                height: 80%;
-                box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;
-                background-color: white;
-                border-radius: 25px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                
-            }
-
-            .result {        
-                width: 95%;   
-                height: 95%;
-                
-            }
-
-            @media only screen and (min-width: 960px) {
-                .container{
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                
-                
-                }
-
-            
-                
-            }
-
-
-            @media only screen and (max-width: 950px) {
-                .container{
-                    width: 100%;
-                    height: 100%;
-                    display: flex;
-                    justify-content: center;
-                    
-                }
-
-                .map-container{
-                    width: 95%;
-                    position: absolute;
-                }
-
-                .result-container{
-                    position: absolute;
-                    bottom: 0;
-                    width: 95%;
-                    height: 20%;
-                    overflow-y: auto;
-                    z-index: 2;
-                }
-                
-            }
-        </style>
-        <ons-splitter>
-            <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-                <ons-page>
-                    <ons-list>
-                        <ons-list-item onclick="fn.load('mapPage.html')" tappable>
-                            แผนที่
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('agendaPage.html')" tappable>
-                            กำหนดการ
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('infoPage.html')" tappable>
-                            ข้อมูลหลักสูตร
-                         </ons-list-item>
-                         <ons-list-item onclick="fn.load('rallyPage.html')" tappable>
-                            กิจกรรม
-                         </ons-list-item>                         
-                    </ons-list>
-                </ons-page>
-            </ons-splitter-side>
-            <ons-splitter-content id="content" page="mapPage.html"></ons-splitter-content>
-        </ons-splitter>
-
-    
+    <body>
+        <ons-navigator swipeable id="myNavigator" page="mapPage.html"></ons-navigator>
 
         <template id="mapPage.html">
-            
             <ons-page id="mapPage">
                 <ons-toolbar>
                     <div class="center">แผนที่</div>
                     <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
+                        <ons-toolbar-button>
                             <ons-icon icon="md-menu"></ons-icon>
                         </ons-toolbar-button>
                     </div>
-                    
                 </ons-toolbar>
-                
+
+                <ons-select select-id="locations" onchange="updateMap()">
+                    <option value="dummy_option">สถานที่</option>
+                </ons-select>
+
                 <div class="container">
                     <div class="map-container">
                         <div class="map" id="map"></div>
@@ -232,67 +39,87 @@
                         <div class="result" id="result"></div>
                     </div>
                 </div>
-                
-            
-            </ons-page>
-        </template>
-
-        <template id="agendaPage.html">
-            <ons-page id="agendaPage">
-                <ons-toolbar>
-                    <div class="center">กำหนดการ</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-                
-            </ons-page>
-        </template>
-
-        <template id="infoPage.html">
-            <ons-page id="infoPage">
-                <ons-toolbar>
-                    <div class="center">ข้อมูลหลักสูตร</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
-
-        <template id="rallyPage.html">
-            <ons-page id="rallyPage">
-                <ons-toolbar>
-                    <div class="center">กิจกรรม</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-
             </ons-page>
         </template>
 
         <script>
+            var map;
+            var dest;
+            var here_marker;
+
+            // get current geolocation
+            function geo_getposition(position) {
+                here_marker = new longdo.Marker({ lon: position.coords.longitude, lat: position.coords.latitude},   
+                    { 
+                        title: 'ฉันอยู่ที่นี่', 
+                        detail: 'I\'m here' 
+                    }
+                );
+                console.log("lon: " + position.coords.longitude + " , " + "lat: " + position.coords.latitude);
+                map.Route.add(here_marker);     
+            }
+
+            // error report
+            function geo_error(err){
+                console.log("gps does not support");
+            }
+
+            // fill dropdown with locations from API
+            function populateSelect(locations) {
+                console.log(locations)
+                locations.forEach(location => {
+                    var option = document.createElement('option');
+                    option.value = Object.keys(location)[0];
+                    option.innerHTML = Object.values(location)[0];
+                    document.getElementById('locations').appendChild(option);
+                });
+            }
+
+            // update map with selected location
+            function updateMap() {
+                var select = document.getElementById('locations');
+                var selected = select.options[select.selectedIndex];
+                fetch('/api/location?' + new URLSearchParams({locationId: selected.value}))
+                    .then(response => response.json())
+                    .then(location => {
+                        map.Overlays.clear();
+                        map.Route.clear();
+                        map.Route.add(here_marker);
+                        map.Route.add(new longdo.Marker({ lon: location.locationLon, lat: location.locationLat},   
+                            { 
+                                title: location.locationName, 
+                                detail: location.locationName 
+                            }
+                        ));
+                        map.Route.search();
+                    });
+            }
+
+            // initialize map
             document.addEventListener('init', () => {
-                window.fn = {};
-                window.fn.open = function() {
-                    var menu = document.getElementById('menu');
-                    menu.open();
-                    
-                };
-                window.fn.load = function(page) {
-                    var content = document.getElementById('content');
-                    var menu = document.getElementById('menu');
-                    content.load(page).then(menu.close.bind(menu));
-                };
-                init();
+                // get current location
+                navigator.geolocation.getCurrentPosition(geo_getposition, geo_error);
+
+                // prepare map
+                map = new longdo.Map({
+                    placeholder: document.getElementById('map')
+                });
+                map.Route.mode(longdo.RouteMode.Walk);
+                map.location(longdo.LocationMode.Geolocation);
+                map.Layers.setBase(longdo.Layers.OSM); 
+                map.Route.placeholder(document.getElementById('result')); // route result
+            });
+
+            // access location API when UI is ready
+            ons.ready(() => {
+                // get list of locations
+                fetch("/api/location")
+                    .then((response) => response.json())
+                    .then(locations => {
+                        populateSelect(locations);
+                    }).catch(err => {
+                        console.log(err);
+                    });
             });
         </script>
     </body>

@@ -33,21 +33,5 @@ const AgendaSchema = new Schema({
     },
 });
 
-const AgendaLogSchema = new Schema({
-    userId: {
-        type: String,
-        unqiue: true,
-        required: [true, "The userId field is required"]
-    },
-    eventId: {
-        type: String,
-    },
-    // your data model here
-    createdAt: {
-        type: String,
-        default: Date.now()
-    },
-});
 
-exports.AgendaModel = mongoose.model('Agenda', AgendaSchema);
-exports.AgendaLogModel = mongoose.model('AgendaLog', AgendaLogSchema);
+module.exports = new mongoose.model('agenda', AgendaSchema);

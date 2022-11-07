@@ -1,7 +1,8 @@
 const fs = require('fs');
 
-const {VisitorModel,LocationModel,VisitorLogModel} = require('../models/visitor_model');
-const {AgendaModel,AgendaLogModel} = require('../models/agenda_model');
+const VisitorLogModel = require('../models/visitor_log');
+const AgendaModel = require('../models/agenda');
+const AgendaLogModel = require('../models/agenda_log');
 
 // import json and populate database
 exports.populateAgenda = () => {
@@ -9,15 +10,28 @@ exports.populateAgenda = () => {
         if (err) return console.log('Error loading agenda data', err);
         let agendas = JSON.parse(content);
         console.log(agendas);
-        // your code here
+        // Q1.1 fill agenda data into database
+
     });
 }
 
 // show agenda based on location and time
-exports.handleAgenda = (req, res) => {
+exports.handleAgenda = async (req, res) => {
     console.log(req.query);
     console.log(req.body);
+    resp = {}
 
-    // your code here
-    res.status(200).json({status:'OK'});
+    // Q1.2 extract userId from req.body and find last location in VisitorLog
+
+    if (location) {
+        // Q1.3 find one agenda based on location and time
+
+    } else {
+        // Q1.4 select one agenda based on time and return to user
+
+    }
+
+    // Q1.5 insert new agenda log into database
+
+    res.status(200).json(resp);
 }
