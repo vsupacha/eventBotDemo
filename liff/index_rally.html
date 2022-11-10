@@ -9,110 +9,46 @@
         <script charset="utf-8" src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
     </head>
     <body>
-        <ons-splitter>
-            <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-                <ons-page>
-                    <ons-list>
-                        <ons-list-item onclick="fn.load('mapPage.html')" tappable>
-                            แผนที่
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('agendaPage.html')" tappable>
-                            กำหนดการ
-                        </ons-list-item>
-                        <ons-list-item onclick="fn.load('infoPage.html')" tappable>
-                            ข้อมูลหลักสูตร
-                         </ons-list-item>
-                         <ons-list-item onclick="fn.load('rallyPage.html')" tappable>
-                            กิจกรรม
-                         </ons-list-item>                         
-                    </ons-list>
-                </ons-page>
-            </ons-splitter-side>
-            <ons-splitter-content id="content" page="registerPage.html"></ons-splitter-content>
-        </ons-splitter>
-        
-        <template id="registerPage.html">
-            <ons-page id="mapPage">
-                <ons-toolbar>
-                    <div class="center">register</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div> 
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
-
-        <template id="mapPage.html">
-            <ons-page id="mapPage">
-                <ons-toolbar>
-                    <div class="center">แผนที่</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div> 
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
-
-        <template id="agendaPage.html">
-            <ons-page id="agendaPage">
-                <ons-toolbar>
-                    <div class="center">กำหนดการ</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
-
-        <template id="infoPage.html">
-            <ons-page id="infoPage">
-                <ons-toolbar>
-                    <div class="center">ข้อมูลหลักสูตร</div>
-                    <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
-                            <ons-icon icon="md-menu"></ons-icon>
-                        </ons-toolbar-button>
-                    </div>
-                </ons-toolbar>
-
-            </ons-page>
-        </template>
+        <ons-navigator swipeable id="myNavigator" page="rallyPage.html"></ons-navigator>
 
         <template id="rallyPage.html">
             <ons-page id="rallyPage">
                 <ons-toolbar>
                     <div class="center">กิจกรรม</div>
                     <div class="right">
-                        <ons-toolbar-button onclick="fn.open()">
+                        <ons-toolbar-button>
                             <ons-icon icon="md-menu"></ons-icon>
                         </ons-toolbar-button>
                     </div>
                 </ons-toolbar>
+            <!-- Q4.9 add button to scan QR code -->
+
+            <ons-list id="rally_list">
+                <ons-list-header>รายการของ rally</ons-list-header>
+            </ons-list>
 
             </ons-page>
         </template>
 
         <script>
+            
+            function scanQR() {
+                // Q4.9 scan QR code, if success, call api/rally
+
+                // Q4.10 make symbols to show all PASS in rally_list
+
+            }
+
             document.addEventListener('init', () => {
-                window.fn = {};
-                window.fn.open = function() {
-                    var menu = document.getElementById('menu');
-                    menu.open();
-                };
-                window.fn.load = function(page) {
-                    var content = document.getElementById('content');
-                    var menu = document.getElementById('menu');
-                    content.load(page).then(menu.close.bind(menu));
-                };
+                // Q4.11 activate LIFF and check if LIFF is already open
+
+            });
+
+            ons.ready(() => {
+                // Q4.13 call api/rally without userId to get all rally items, then populate rally_list
+
+                // Q4.14 call api/rally with userId to get all PASS in rally_list, and show PASS symbol
+
             });
         </script>
     </body>

@@ -30,10 +30,22 @@ exports.addVisitorLog = async (userId, locationId) => {
 }
 
 // query latest location of userId
-exports.queryVisitorLog = async (userId) => {
-    const visitor_log = await VisitorLogModel.findOne().sort({ createdAt: -1 });
-    if (visitor_log) {
-        return visitor_log.locationId;
+exports.handleVisitor = async (req,res) => {
+    var resp;
+
+    if (Object.keys(req.query).length > 0) {
+        // find latest visitor location in database
+        resp = await VisitorLogModel.findOne(
+            {userId:req.query['userId']},
+            null, 
+            {sort:{createdAt: -1}}
+        );
+        if (!resp) {
+            resp = {};
+        }
+    } else {
+        resp = {};
     }
-    return null;
+    console.log(resp)
+    res.status(200).json(resp);
 }

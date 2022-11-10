@@ -3,16 +3,13 @@
 const express = require('express');
 var bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const line = require('@line/bot-sdk');
 
-const visitorAPI = require('./api/visitor');
 const locationAPI = require('./api/location');
+const visitorAPI = require('./api/visitor');
 const mapAPI = require('./api/map');
-/*
 const agendaAPI = require('./api/agenda');
 const infoAPI = require('./api/info');
 const rallyAPI = require('./api/rally');
-*/
 const mockTest = require('./test/mock');
 
 require('dotenv').config();
@@ -31,9 +28,9 @@ mongoose.connect(process.env.MONGODB_URI, {autoIndex: true});
 
 // populate data into MongoDB
 locationAPI.populateLocation();
-//agendaAPI.populateAgenda();
-//infoAPI.populateInfo();
-//rallyAPI.populateRally();
+agendaAPI.populateAgenda();
+infoAPI.populateInfo();
+rallyAPI.populateRally();
 
 // API
 app.use(bodyParser.json());
@@ -44,13 +41,18 @@ app.get('/api/location', (req,res) => {
     locationAPI.handleLocation(req, res);
 });
 
+app.get('/api/visitor', (req,res) => {
+    console.log("/api/visitor request query: ", req.query);
+    console.log("/api/visitor request body: ", req.body);
+    visitorAPI.handleVisitor(req, res); 
+});
+
 app.get('/api/map', (req,res) => {
     console.log("/api/map request query: ", req.query);
     console.log("/api/map request body: ", req.body);
     mapAPI.handleMap(req, res);
 });
 
-/*
 app.get('/api/agenda', (req,res) => {
     console.log("/api/agenda request query: ", req.query);
     console.log("/api/agenda request body: ", req.body);
@@ -68,7 +70,12 @@ app.get('/api/rally', (req,res) => {
     console.log("/api/rally request body: ", req.body);
     rallyAPI.handleRally(req, res);
 });
-*/
+
+app.get('/api/status', (req,res) => {
+    console.log("/api/status request query: ", req.query);
+    console.log("/api/status request body: ", req.body);
+    statusAPI.handleStatus(req, res);
+});
 
 // API test
 

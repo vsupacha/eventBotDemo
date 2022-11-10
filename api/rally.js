@@ -1,11 +1,9 @@
 const fs = require("fs");
 
-const {
-  VisitorModel,
-  LocationModel,
-  VisitorLogModel,
-} = require("../models/visitor");
-const { RallyModel, RallyLogModel } = require("../models/rally");
+const VisitorLogModel = require('../models/visitor');
+const RallyModel = require("../models/rally");
+const RallyLogModel = require("../models/rally_log");
+
 
 // populate information data
 exports.populateRally = () => {
@@ -13,6 +11,10 @@ exports.populateRally = () => {
     if (err) return console.log("Error loading rally data", err);
     let rallys = JSON.parse(content);
     console.log(rallys);
+    // Q4.1 fix bug in old code
+
+    /*
+    OLD code with bug
     for (let key in Object.keys(rallys)) {
       await RallyModel.create({
         rallyId: key,
@@ -21,13 +23,34 @@ exports.populateRally = () => {
         qrCode: rallys.key.qrCode,
       });
     }
-    // your code here
+    */
   });
 };
 
 // record rally activities
 exports.handleRally = async (req, res) => {
-  let msg = { status: "OK" };
+  let msg = {};
+  
+  if (req.query.userId === undefined) {
+    // Q4.3 return all Rally to populate UI
+
+  } else {
+    if (req.query.qr_value === undefined) {
+      // Q4.4 generate summary of finished rallyId from RallyLog
+
+    } else {
+      // Q4.5 query VisitorLog for latest location
+
+      // Q4.6 use combined conditions (qr_value and locationId) to find the rallyId
+
+      // Q4.7 query RallyLog to find all rallyId and generate summary
+
+      // Q4.8 record new rallyId into RallyLog
+      
+    }
+  } 
+  /*
+  OLD CODE
   const uid = req.query.uid;
   const qr_code_value = req.query.qrCode;
   const rally = RallyModel.findOne({ qrCode: qr_code_value });
@@ -52,7 +75,6 @@ exports.handleRally = async (req, res) => {
   if (allStamp.length == userStamp.length) {
     msg.notification = "Congrate! You get all stamp. It's your token.";
   }
+  */
   res.status(200).json(msg);
-
-  // your code here
 };

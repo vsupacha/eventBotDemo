@@ -19,7 +19,8 @@ const RallySchema = new Schema({
         type: String,
         required: [true, "The qrCode field is required"]
     },
-    // your data model here
+    // Q4.2 add field for checking location is valid or not
+
     createdAt: {
         type: String,
         default: Date.now()

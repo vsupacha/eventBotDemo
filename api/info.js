@@ -2,6 +2,7 @@ const fs = require('fs');
 
 const VisitorLogModel = require('../models/visitor_log');
 const InfoModel = require('../models/info');
+const ContactModel = require('../models/contact');
 const InfoLogModel = require('../models/info_log');
 
 
@@ -10,7 +11,7 @@ exports.populateInfo = () => {
     fs.readFile('./data/info.json', (err, content) => {
         if (err) return console.log('Error loading info data', err);
         let infos = JSON.parse(content);
-        // Q2.1 fill info data into database (Mongoose style)
+        // Q3.1 fill info data into database (Mongoose style)
 
     });
 }
@@ -19,18 +20,21 @@ exports.populateInfo = () => {
 exports.handleInfo = (req, res) => {
     var resp = {}
 
-    // Q2.2 extract userId and keywords (as Array) from req.body 
+    // Q3.2 extract userId and keywords (as Array) from req.query 
     
-    // Q2.3 find userId from last location in VisitorLog
+    if (keywords) {
+        // Q3.3 find all info related to keywords (use regex in Mongoose criteria) 
 
-    if (location) {
-        // Q2.4 find all info based on location and keywords
+        // Q3.4 aggreate multiple info as one if multiple keywords are provided
+
+        // Q3.5 insert new info log into database
 
     } else {
-        // Q2.5 select all info based on keywords
+        // Q3.6 get name/phone/email from req.query
+
+        // Q3.7 add new contact into database
 
     }
-    // Q2.6 generate response and return to user
 
     res.status(200).json(resp);
 }

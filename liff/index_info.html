@@ -11,173 +11,102 @@
 </head>
 
 <body>
-    <ons-splitter>
-        <ons-splitter-side id="menu" side="right" width="220px" collapse swipeable>
-            <ons-page>
-                <ons-list>
-                    <ons-list-item onclick="fn.load('mapPage.html')" tappable>
-                        แผนที่
-                    </ons-list-item>
-                    <ons-list-item onclick="fn.load('agendaPage.html')" tappable>
-                        กำหนดการ
-                    </ons-list-item>
-                    <ons-list-item onclick="fn.load('infoPage.html')" tappable>
-                        ข้อมูลหลักสูตร
-                    </ons-list-item>
-                    <ons-list-item onclick="fn.load('rallyPage.html')" tappable>
-                        กิจกรรม
-                    </ons-list-item>
-                </ons-list>
-            </ons-page>
-        </ons-splitter-side>
-        <ons-splitter-content id="content" page="infoPage.html"></ons-splitter-content>
-    </ons-splitter>
-
-    <template id="mapPage.html">
-        <ons-page id="mapPage">
-            <ons-toolbar>
-                <div class="center">แผนที่</div>
-                <div class="right">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-            </ons-toolbar>
-
-        </ons-page>
-    </template>
-
-    <template id="agendaPage.html">
-        <ons-page id="agendaPage">
-            <ons-toolbar>
-                <div class="center">กำหนดการ</div>
-                <div class="right">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-            </ons-toolbar>
-
-        </ons-page>
-    </template>
+    <ons-navigator swipeable id="myNavigator" page="infoPage.html"></ons-navigator>
 
     <template id="infoPage.html">
         <ons-page id="infoPage">
             <ons-toolbar>
                 <div class="center">ข้อมูลหลักสูตร</div>
                 <div class="right">
-                    <ons-toolbar-button onclick="fn.open()">
+                    <ons-toolbar-button>
                         <ons-icon icon="md-menu"></ons-icon>
                     </ons-toolbar-button>
                 </div>
             </ons-toolbar>
-            <ons-page id="info">
-                <script>
-                    let hostname = window.location.origin;
-                    const info = () => {
-                        const name = document.querySelector('#name').value;
-                        const tel = document.querySelector('#tel').value;
-                        const email = document.querySelector('#email').value;
-                        const search = document.querySelector('#search').value;
-                        if (name == '' || tel == '' || email == '' || search == '') {
-                            alert('โปรดกรอกข้อมูลให้ครบถ้วน');
-                        } else {
-                            var xhr = new XMLHttpRequest();
-                            let htmlString = "";
-                            xhr.onreadystatechange = () => {
-                                if (xhr.readyState === 4) {
-                                    response = JSON.parse(xhr.response);
-
-                                    for (key in response['output']) {
-                                        htmlString +=
-
-                                            '<ons-list>\
-                                                <ons-list-header>TITLE : '+ response['output'][key]['title'] + '</ons-list-header>\
-                                                <ons-list-item>DESCRIPTION : '+ response['output'][key]['description'] + '</ons-list-item>\
-                                                <ons-list-item>LOCATION : '+ response['output'][key]['location'] + '</ons-list-item>\
-                                            </ons-list><br>';
-                                    }
-                                    document.getElementById("result_p").innerHTML = htmlString;
-                                }
-                            }
-                            xhr.open('get', hostname + '/api/info?name=' + name + '&tel=' + tel + '&email=' + email + '&search=' + search, true);
-                            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                            xhr.send();
-                            alert('ส่งข้อมูลเรียบร้อยแล้ว');
-                        }
-                    }   
-                </script>
-                <ons-list-item class="input-items">
-                    <div class="left">
-                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                    </div>
-                    <label class="center">
-                        <ons-input id="name" float maxlength="20" placeholder="Name" required></ons-input>
-                    </label>
-                </ons-list-item>
-                <ons-list-item class="input-items">
-                    <div class="left">
-                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                    </div>
-                    <label class="center">
-                        <ons-input id="tel" float maxlength="20" placeholder="Telephone" type="number" required>
-                        </ons-input>
-                        <!-- <input type="tel"> -->
-                    </label>
-                </ons-list-item>
-                <ons-list-item class="input-items">
-                    <div class="left">
-                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
-                    </div>
-                    <label class="center">
-                        <ons-input id="email" float maxlength="20" placeholder="Email" type="email" required>
-                        </ons-input>
-                        <!-- <input type="email"> -->
-                    </label>
-                </ons-list-item>
+            <ons-list>
+                <ons-list-header>ค้นข้อมูลหลักสูตร</ons-list-header>
                 <ons-list-item class="input-items">
                     <div class="left">
                         <ons-icon icon="fa-question-circle-o" class="list-item__icon"></ons-icon>
                     </div>
+                    <div class="center">
+                        <ons-search-input id="search" maxlength="30" placeholder="Search"></ons-search-input>
+                    </div>
+                    <div class="right">
+                        <!-- Q3.9 bind function searchKeywords() -->
+                        <ons-button>ค้นหา</ons-button>
+                    </div>
+                </ons-list-item>
+                <ons-list-item>
+                    <div class="left">
+                        <textarea id="info_text" rows="10" readonly class="textarea textarea--transparent"></textarea>
+                    </div>
+                </ons-list-item>
+                <ons-list-header>ขอข้อมูลเพิ่ม</ons-list-header>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
                     <label class="center">
-                        <ons-search-input id="search" maxlength="20" placeholder="Search" required></ons-search-input>
+                        <ons-input id="name" float maxlength="20" placeholder="Name"></ons-input>
                     </label>
                 </ons-list-item>
-                <section style="margin: 16px">
-                    <ons-button onclick="info()">Submit</ons-button>
-                </section>
-                <br>
-                <p id="result_p"></p>
-            </ons-page>
-        </ons-page>
-    </template>
-
-    <template id="rallyPage.html">
-        <ons-page id="rallyPage">
-            <ons-toolbar>
-                <div class="center">กิจกรรม</div>
-                <div class="right">
-                    <ons-toolbar-button onclick="fn.open()">
-                        <ons-icon icon="md-menu"></ons-icon>
-                    </ons-toolbar-button>
-                </div>
-            </ons-toolbar>
-
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
+                        <ons-input id="tel" float maxlength="20" placeholder="Telephone" type="number">
+                        </ons-input>
+                    </label>
+                </ons-list-item>
+                <ons-list-item class="input-items">
+                    <div class="left">
+                        <ons-icon icon="md-face" class="list-item__icon"></ons-icon>
+                    </div>
+                    <label class="center">
+                        <ons-input id="email" float maxlength="20" placeholder="Email" type="email">
+                        </ons-input>
+                    </label>
+                </ons-list-item>
+                <ons-list-item>
+                    <!-- Q3.12 bind button with submitContact() -->
+                    <ons-button class="button button--large--cta" style="width: 95%; margin: 0 auto;">แจ้งข้อมูล</ons-button> 
+                </ons-list-item>
+            </ons-list>
         </ons-page>
     </template>
 
     <script>
+        // search for information with keywords
+        function searchKeywords() {
+            // Q3.9 check data in search box, alert if empty
+
+            
+                alert('กรุณากรอกข้อมูลที่ต้องการค้นหา');
+
+            // Q3.10 combine multiple texts in search box as str1,str2, then call api/info with userId and keywords
+
+            // Q3.11 if success, combine title and description to display in info_text
+
+        }
+
+        // submit contact for more information
+        function submitContact() {
+            // Q3.12 check data in name, tel, email, alert if empty
+
+                alert('กรุณากรอกข้อมูลให้ครบถ้วน');
+            
+            // Q3.13 call api/info with userId, name, tel, email as query parameters
+
+        }
+
         document.addEventListener('init', () => {
-            window.fn = {};
-            window.fn.open = function () {
-                var menu = document.getElementById('menu');
-                menu.open();
-            };
-            window.fn.load = function (page) {
-                var content = document.getElementById('content');
-                var menu = document.getElementById('menu');
-                content.load(page).then(menu.close.bind(menu));
-            };
+
+        });
+
+        ons.ready( () => {
+
         });
         
     </script>

@@ -11,113 +11,67 @@
         
     </head>
     <body>
+        <ons-navigator swipeable id="myNavigator" page="dashboardPage.html"></ons-navigator>
 
-        <h3>LoggingFile Dropdown</h3>
-        <p>Click on the button to open the dropdown menu.</p>
+        <template id="dashboardPage.html">
+            <ons-page id="dashboardPage">
+                <ons-toolbar>
+                    <div class="center">สถานะของระบบ</div>
+                    <div class="right">
+                        <ons-toolbar-button>
+                            <ons-icon icon="md-menu"></ons-icon>
+                        </ons-toolbar-button>
+                    </div>
+                </ons-toolbar>
 
+                <ons-list>
+                    <ons-list-header>ผู้เข้าชมงาน</ons-list-header>
+                    <ons-list-item>
+                        <!-- Q5.1 UI for visitor summary -->
+                    </ons-list-item>
+                    
+                    <ons-list-header>บริการแผนที่</ons-list-header>
+                    <ons-list-item>
+                        <!-- Q5.2 UI for map service -->
+                    </ons-list-item>
 
-        <!-- <div class="dropdown">
-            <button onclick="myFunction()" class="dropbtn">Drop</button>
-            <div id="myDropdown" class="dropdown-content">
-                <a href="#Agenda">
-                    <button onlclick="agenda_alert()">
-                        Agenda Logging
-                </button></a>
-                <a href="#Info">
-                    <button onlclick="info_alert()">
-                        Info Logging
-                </button></a>
-                <a href="#map">
-                    <button onlclick="map_alert()">
-                        map Logging
-                </button></a>
-                <a href="#rally">
-                    <button onlclick="rally_alert()">
-                        rally Logging
-                </button></a>
-            </div>
-        </div>  -->
+                    <ons-list-header>บริการกำหนดการ</ons-list-header>
+                    <ons-list-item>
+                        <!-- Q5.3 UI for agenda service -->
+                    </ons-list-item>
 
-        <form action="/">
-            <label for="log">Choose LoggingFile:</label>
-            <select name="log" id="log">
-              <option value="volvo">agenda</option>
-              <option value="saab">info</option>
-              <option value="opel">map</option>
-              <option value="audi">rally</option>
-            </select>
-            <br><br>
-            <input type="submit" value="Submit">
-        </form>
+                    <ons-list-header>บริการข้อมูลหลักสูตร</ons-list-header>
+                    <ons-list-item>
+                        <!-- Q5.4 UI for course information service -->
+                    </ons-list-item>
 
+                    <ons-list-header>สถานะกิจกรรม</ons-list-header>
+                    <ons-list-item>
+                        <!-- Q5.5 UI for rally status -->
+                    </ons-list-item>
 
-        <div id='myDiv'>
-            <!-- Plotly chart will be drawn inside this DIV -->
-        </div>
-
+                </ons-list>
+            </ons-page>
+        </template>
 
     </body> 
 
-    <script>
-
-        
+    <script>        
         document.addEventListener('init', () => {
-            // your code here
-        });
-        
-        var data = [{
-            type: "pie",
-            values: [10, 50],
-            labels: ["Followed", "Unfollowed"],
-            textinfo: "label+percent",
-            textposition: "outside",
-            automargin: true
-        }];
 
-        var layout = {
-            title: 'Visitors',
-            height: 400,
-            width: 600,
-            showlegend: false,
-        };
-
-        Plotly.newPlot('myDiv', data, layout);
-        
-        const {VisitorModel,LocationModel,VisitorLogModel} = require('../models/visitor_model');
-        const {InfoModel,InfoLogModel} = require('../models/info_model');
-        const {AgendaModel,AgendaLogModel} = require('../models/agenda_model');
-        const {MapLogModel} = require('../models/map_model');
-        const {RallyModel,RallyLogModel} = require('../models/rally_model');
-
-        var MongoClient = require('mongodb').MongoClient;
-        var url = process.env.MONGODB_URI;
-
-        MongoClient.connect(url,function(err, db) {
-            if (err) throw err;
-            var db_test = db.db("eventbotdemo");
-            console.log(db_test.collection())
         });
 
-        
-        document.addEventListener('init', () => {
-            // your code here
-        });
+        ons.ready( () => {
+            // Q5.1 call api/status and update summary of visitors
 
-        /* When the user clicks on the button, 
-        toggle between hiding and showing the dropdown content */
-        function myFunction() {
-            document.getElementById("myDropdown").classList.toggle("show");
-            if (!event.target.matches('.dropbtn')) {
-                var dropdowns = document.getElementsByClassName("dropdown-content");
-                var i;
-                for (i = 0; i < dropdowns.length; i++) {
-                    var openDropdown = dropdowns[i];
-                    if (openDropdown.classList.contains('show')) {
-                    openDropdown.classList.remove('show');
-                    }
-                }
-                }
-        }    
-    
+            // Q5.2 call api/status and update summary of map service
+
+            // Q5.3 call api/status and update summary of agenda service
+
+            // Q5.4 call api/status and update summary of info service
+
+            // Q5.5 call api/status and update summary of rally service
+
+        });
     </script>
 </html>

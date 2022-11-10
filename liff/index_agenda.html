@@ -22,20 +22,44 @@
                     </div>
                 </ons-toolbar>
 
-                <select class="select-input">
-                    <option>Option 1</option>
-                    <option>Option 2</option>
-                    <option>Option 3</option>
-                </select>
+                <!-- Check https://onsen.io/v2/api/css.html -->
+
+                <!-- Q2.6 add dropdown to show current location -->
+
+                <!-- Q2.7 select active location in dropdown -->
+
+                <!-- Q2.8 add button and bind with queryAgenda( ) -->
+
+                <!-- Q2.9 add two Textarea for title/description -->
+
+                <!-- Q2.10 add list with two items: start: ??:??,stop: ??:??  -->
+
             </ons-page>
         </template>
 
         <script>
+
+            function queryAgenda() {
+                // Q2.8 query agenda based on current locationId
+                
+                // Q2.9 fill title/description into Textarea
+
+                // Q2.10 modify time start/stop in the list
+
+            }
+
             document.addEventListener('init', () => {
                 // use window object to keep userId as global variable
-                window.userId = 'myself';
                 
             });
+
+            ons.ready( () => {
+                // Q2.6 query locations from api/location and fill in dropdown
+
+                // Q2.7 query current location from api/visitor and update dropdown value/text
+
+            });
+
         </script>
     </body>
 </html>

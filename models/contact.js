@@ -2,16 +2,12 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const RallyLogSchema = new Schema({
+const ContactSchema = new Schema({
     userId: {
         type: String,
         required: [true, "The userId field is required"]
     },
-    rallyId: {
-        type: String,
-        required: [true, "The userId field is required"]
-    },
-    // Q4.2 add field for location
+    // Q3.8 add fields to store name/phone/email
 
     createdAt: {
         type: String,
@@ -19,5 +15,4 @@ const RallyLogSchema = new Schema({
     }
 });
 
-
-module.exports = new mongoose.model('rally_log', RallyLogSchema);
+module.exports = new mongoose.model('contact', ContactSchema);

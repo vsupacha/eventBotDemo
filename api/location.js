@@ -46,8 +46,10 @@ exports.handleLocation = async (req, res) => {
     var resp;
 
     if (Object.keys(req.query).length > 0) {
+        // find object from locationId
         resp = await LocationModel.findOne({"locationId": req.query['locationId']});
     } else {
+        // if no query params, find all locations
         const docs = await LocationModel.find({});
         resp = docs.map(doc => {
             const obj = {};
