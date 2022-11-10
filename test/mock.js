@@ -3,7 +3,6 @@ const AgendaLogModel = require('../models/agenda_log');
 const InfoLogModel = require('../models/info_log');
 const MapLogModel = require('../models/map_log');
 const RallyLogModel = require('../models/rally_log');
-const info_log = require('../models/info_log');
 
 // วิธีการเช็คว่า Inject เข้าหรือไม่
 // *เข้า docker
@@ -39,7 +38,7 @@ exports.injectAgendaLog = async (userId, eventId) => {
 // inject InfoLog
 // Example : http://localhost/test/inject?type=InfoLog&userId=value1&infoId=value2&name=value3&tel=value4&email=value5&search=value6
 exports.injectInfoLog = async (userId, infoId, name, tel, email, search) => {
-    await info_log.create({
+    await InfoLogModel.create({
         userId: userId,
         infoId: infoId,
         name: name,
