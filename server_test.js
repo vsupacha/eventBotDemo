@@ -91,13 +91,13 @@ app.get('/test/inject', (req, res) => {
                 mockTest.injectVisitorLog(req.query.userId, req.query.locationId);
                 break;
             case 'AgendaLog':
-                mockTest.injectAgendaLog(req.query.userId, req.query.agendaId);
+                mockTest.injectAgendaLog(req.query.userId, req.query.eventId);
                 break;
             case 'InfoLog':
-                mockTest.injectInfoLog(req.query.userId, req.query.infoId);
+                mockTest.injectInfoLog(req.query.userId, req.query.infoId, req.query.name, req.query.tel, req.query.email, req.query.search);
                 break;
             case 'MapLog':
-                mockTest.injectMapLog(req.query.userId, req.query.locationId);
+                mockTest.injectMapLog(req.query.userId, req.query.fromLoc, req.query.toLoc);
                 break;
             case 'RallyLog':
                 mockTest.injectRallyLog(req.query.userId, req.query.rallyId);
