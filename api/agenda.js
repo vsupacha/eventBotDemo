@@ -11,6 +11,26 @@ exports.populateAgenda = () => {
         let agendas = JSON.parse(content);
         console.log(agendas);
         // Q2.1 fill agenda data into database
+        for (const id in agendas) {
+            console.log(id);
+            (async () => {
+                console.log(agendas[id]);
+                console.log(AgendaModel)
+                await AgendaModel.findOneAndUpdate(
+                    { eventId: id },
+                    { 
+                        eventTitle: agendas[id].title, 
+                        eventDesc: agendas[id].description,
+                        locationId: agendas[id].location,
+                        eventStart: agendas[id].start,
+                        eventEnd: agendas[id].end,
+                        updatedAt: Date.now() 
+                    },
+                    { upsert: true }
+                );
+                console.log('Agenda data updated');
+            })();
+        }
 
     });
 }
