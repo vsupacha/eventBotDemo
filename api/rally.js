@@ -3,7 +3,6 @@ const fs = require("fs");
 const VisitorLogModel = require('../models/visitor');
 const RallyModel = require("../models/rally");
 const RallyLogModel = require("../models/rally_log");
-const { type } = require("os");
 
 
 // populate information data
@@ -25,7 +24,7 @@ exports.populateRally = () => {
       // console.log(Object.values(rallys)[key])
       // console.log(Object.keys(rallys)[key])
 
-      
+
     }
     /*
     OLD code with bug
