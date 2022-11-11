@@ -10,6 +10,7 @@ const mapAPI = require('./api/map');
 const agendaAPI = require('./api/agenda');
 const infoAPI = require('./api/info');
 const rallyAPI = require('./api/rally');
+const statusAPI = require('./api/status');
 const mockTest = require('./test/mock');
 
 require('dotenv').config();
