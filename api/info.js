@@ -12,7 +12,25 @@ exports.populateInfo = () => {
         if (err) return console.log('Error loading info data', err);
         let infos = JSON.parse(content);
         // Q3.1 fill info data into database (Mongoose style)
-
+        console.log(infos);
+        for (const id in infos) {
+            console.log(id);
+            (async () => {
+                console.log(infos[id]);
+                console.log(InfoModel)
+                await InfoModel.findOneAndUpdate(
+                    { infoId: id },
+                    { 
+                        infoTitle: infos[id].title, 
+                        infoDescription: infos[id].description,
+                        infoLocation: infos[id].location,
+                        updatedAt: Date.now() 
+                    },
+                    { upsert: true }
+                );
+                console.log('Info data updated');
+            })();
+        }
     });
 }
 
