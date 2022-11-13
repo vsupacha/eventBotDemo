@@ -20,11 +20,11 @@ exports.populateInfo = () => {
                 console.log(InfoModel)
                 await InfoModel.findOneAndUpdate(
                     { infoId: id },
-                    { 
-                        infoTitle: infos[id].title, 
+                    {
+                        infoTitle: infos[id].title,
                         infoDescription: infos[id].description,
                         infoLocation: infos[id].location,
-                        updatedAt: Date.now() 
+                        updatedAt: Date.now()
                     },
                     { upsert: true }
                 );
@@ -39,18 +39,18 @@ exports.handleInfo = async (req, res) => {
     var resp = {};
     var output = {};
     // Q3.2 extract userId and keywords (as Array) from req.query 
-    if(req.query.keywords){
-        var keywords=req.query.keywords.split(',');
+    if (req.query.keywords) {
+        var keywords = req.query.keywords.split(',');
     }
-    if(req.query.userId){
-        var userId=req.query.userId;
+    if (req.query.userId) {
+        var userId = req.query.userId;
     }
-    
+
     // console.log(keywords);
     if (keywords) {
         // Q3.3 find all info related to keywords (use regex in Mongoose criteria) 
         for (const id in keywords) {
-            output[keywords[id]]= await InfoModel.find({infoTitle: { $regex: "(?i)"+keywords[id]+"(?-i)" }});
+            output[keywords[id]] = await InfoModel.find({ infoTitle: { $regex: "(?i)" + keywords[id] + "(?-i)" } });
         };
         console.log(output);
         // Q3.4 aggreate multiple info as one if multiple keywords are provided
@@ -62,12 +62,31 @@ exports.handleInfo = async (req, res) => {
         }
         resp = temp;
         // Q3.5 insert new info log into database
+        InfoLogModel.create({
+            keywords: keywords,
+            userId: userId
+        });
 
-    } 
+    }
     else {
         // Q3.6 get name/phone/email from req.query
+        if (req.query.name) {
+            var name = req.query.name;
+        }
+        if (req.query.phone) {
+            var phone = req.query.phone;
+        }
+        if (req.query.email) {
+            var email = req.query.email;
+        }
+
 
         // Q3.7 add new contact into database
+        ContactModel.create({
+            name: name,
+            phone: phone,
+            email: email
+        });
 
     }
 
