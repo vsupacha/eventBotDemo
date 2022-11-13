@@ -46,13 +46,29 @@ exports.handleRally = async (req, res) => {
 
   if (req.query.userId === undefined) {
     // Q4.3 return all Rally to populate UI
+    const allRally = await RallyModel.find({})  
+    console.log(allRally)
+    res.status(200).json(allRally);
+    return allRally;
+    console.log("allRally returned")
 
   } else {
     if (req.query.qr_value === undefined) {
       // Q4.4 generate summary of finished rallyId from RallyLog
+      const userStamp = RallyLogModel.find({ userId: uid })
+      console.log("finishedRally returned")
+      console.log(userStamp)
+      res.status(200).json(userStamp);
+      return userStamp;
 
     } else {
       // Q4.5 query VisitorLog for latest location
+      const userVisitLocation = VisitorLogModel.findOne({userId: uid},{locationId:1, _id:0})
+      const userLatestLocation = userVisitLocation.limit(1).sort({$natural:-1}) 
+      console.log(userLatestLocation)
+      res.status(200).json(userLatestLocation);
+      return userLatestLocation;
+      
 
       // Q4.6 use combined conditions (qr_value and locationId) to find the rallyId
 

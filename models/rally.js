@@ -28,7 +28,9 @@ const RallySchema = new Schema({
     updatedAt: {
         type: String,
         default: Date.now()
-    }
+    },
+
+   
 });
 
 
