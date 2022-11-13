@@ -54,6 +54,8 @@ exports.handleLocation = async (req, res) => {
         resp = docs.map(doc => {
             const obj = {};
             obj[doc.locationId] = doc.locationName;
+            obj[doc.locationLon] = doc.locationLon;
+            obj[doc.locationLat] = doc.locationLat;
             return obj;
         });
     }

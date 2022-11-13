@@ -27,6 +27,8 @@
                     </div>
                 </ons-toolbar>
 
+
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <ons-select select-id="locations" onchange="updateMap()">
                     <option value="dummy_option">สถานที่</option>
                 </ons-select>
@@ -48,12 +50,14 @@
             var here_lat;
             var here_lon;
             var here_marker;
+            var fromLocation;
 
             // get and mark current geolocation
             function geo_getposition(position) {
                 here_lat = position.coords.latitude;
                 here_lon = position.coords.longitude;
-                here_marker = new longdo.Marker({ lon: here_lon, lat: here_lat},   
+                fromLocation = here_lat + ',' + here_lon;
+                here_marker = new longdo.Marker({ lon: here_lon, lat: here_lat},    
                     { 
                         title: 'ฉันอยู่ที่นี่', 
                         detail: 'I\'m here' 
@@ -88,7 +92,11 @@
                         map.Route.search();
                     });
                 // Q1.1 connect to api/map with userId, from(lat/lon) and to(locationId)
-
+                fetch('/api/map?' + new URLSearchParams({userId: userId, fromLoc:fromLocation, toLoc:selected.value}))
+                    .then(response => response.json())
+                    .then(result => {
+                        console.log(result)
+                    });
             }
 
             // initialize map
@@ -118,7 +126,12 @@
                             option.innerHTML = Object.values(location)[0];
                             document.getElementById('locations').appendChild(option);
                             // Q1.2 add new marker as reference point
-
+                            map.Route.add(new longdo.Marker({ lon: Object.keys(location)[1], lat: Object.keys(location)[2]},   
+                                { 
+                                    title: Object.keys(location)[0], 
+                                    detail: Object.keys(location)[0] 
+                                }
+                            ));
                         });
                     }).catch(err => {
                         console.log(err);
