@@ -34,7 +34,7 @@
                     </div>
                     <div class="right">
                         <!-- Q3.9 bind function searchKeywords() -->
-                        <ons-button>ค้นหา</ons-button>
+                        <ons-button type = "text" onclick="searchKeywords()">ค้นหา</ons-button>
                     </div>
                 </ons-list-item>
                 <ons-list-item>
@@ -71,7 +71,7 @@
                 </ons-list-item>
                 <ons-list-item>
                     <!-- Q3.12 bind button with submitContact() -->
-                    <ons-button class="button button--large--cta" style="width: 95%; margin: 0 auto;">แจ้งข้อมูล</ons-button> 
+                    <ons-button onclick="submitContact()" class="button button--large--cta" style="width: 95%; margin: 0 auto;">แจ้งข้อมูล</ons-button> 
                 </ons-list-item>
             </ons-list>
         </ons-page>
@@ -81,10 +81,14 @@
         // search for information with keywords
         function searchKeywords() {
             // Q3.9 check data in search box, alert if empty
-
+            var input
             
-                alert('กรุณากรอกข้อมูลที่ต้องการค้นหา');
+            input = document.querySelector('#search').value;
 
+            if (!input) {
+                alert('กรุณากรอกข้อมูลที่ต้องการค้นหา');
+            } 
+ 
             // Q3.10 combine multiple texts in search box as str1,str2, then call api/info with userId and keywords
 
             // Q3.11 if success, combine title and description to display in info_text
@@ -94,11 +98,26 @@
         // submit contact for more information
         function submitContact() {
             // Q3.12 check data in name, tel, email, alert if empty
+            var name, tel, email
 
+            name = document.querySelector('#name').value;
+            tel = document.querySelector('#tel').value;
+            email = document.querySelector('#email').value;
+            search = document.querySelector('#search')
+            if (name == "" || tel == "" || email == "") {
                 alert('กรุณากรอกข้อมูลให้ครบถ้วน');
-            
-            // Q3.13 call api/info with userId, name, tel, email as query parameters
-
+            }
+             // Q3.13 call api/info with userId, name, tel, email as query parameters  
+            else{
+                fetch('/api/info?name=' + name + '&tel=' + tel + '&email=' + email + '&search=' + search)
+                .then(response => response.json())
+                .then(response => {
+                        console.log('Success');
+                    })
+                .catch((error) => {
+                        console.error('Error:', error);
+                    });
+            }
         }
 
         document.addEventListener('init', () => {
