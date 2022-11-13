@@ -12,7 +12,20 @@ exports.populateRally = () => {
     let rallys = JSON.parse(content);
     console.log(rallys);
     // Q4.1 fix bug in old code
+    for (let key in Object.keys(rallys)) {
+      let data = Object.values(rallys)[key]
+      await RallyModel.create({
+        rallyId: Object.keys(rallys)[key],
+        rallyTitle: data.title,
+        rallyDesc: data.description,
+        qrCode: data.qrCode,
+      });
+      // console.log("data : ")
+      // console.log(Object.values(rallys)[key])
+      // console.log(Object.keys(rallys)[key])
 
+
+    }
     /*
     OLD code with bug
     for (let key in Object.keys(rallys)) {
@@ -30,7 +43,7 @@ exports.populateRally = () => {
 // record rally activities
 exports.handleRally = async (req, res) => {
   let msg = {};
-  
+
   if (req.query.userId === undefined) {
     // Q4.3 return all Rally to populate UI
 
@@ -46,9 +59,9 @@ exports.handleRally = async (req, res) => {
       // Q4.7 query RallyLog to find all rallyId and generate summary
 
       // Q4.8 record new rallyId into RallyLog
-      
+
     }
-  } 
+  }
   /*
   OLD CODE
   const uid = req.query.uid;
