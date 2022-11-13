@@ -40,6 +40,8 @@ exports.handleAgenda = async (req, res) => {
     var resp = {}
 
     // Q2.2 extract userId from req.query and find last location in VisitorLog
+    let location = VisitorLogModel.findOne({ userId: req.query['userId'] }, null, { sort: { createdAt: -1 } });
+
 
     if (location) {
         // Q2.3 find one agenda based on location and time
