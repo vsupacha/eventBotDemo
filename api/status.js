@@ -21,18 +21,45 @@ exports.handleStatus = async (req, res) => {
             break;
         case "agenda":
             // Q5.8 generate summary from AgendaLog
-            resp = await AgendaLogModel.find({},{__v: 0});
-
+            if(AgendaLogModel.find() == null){
+                console.log('Query Data Error');
+            }
+            else{
+                resp = await AgendaLogModel.find({});
+                if(resp.length == 0){
+                    console.log('Data in agenda_logs is empty');
+                }else{
+                    console.log('Data in agenda_logs collection : ',resp.length);
+                }
+            }
             break;
         case "info":
             // Q5.9 generate summary from InfoLog
-            resp = await InfoLogModel.find({},{__v: 0});
-
+            if(InfoLogModel.find() == null){
+                console.log('Query Data Error');
+            }
+            else{
+                resp = await InfoLogModel.find({});
+                if(resp.length == 0){
+                    console.log('Data in info_logs is empty');
+                }else{
+                    console.log('Data in info_logs collection : ',resp.length);
+                }
+            }
             break;
         case "rally":
             // Q5.10 generate summary from RallyLog
-            resp = await RallyLogModel.find({},{__v: 0});
-
+            if(RallyLogModel.find() == null){
+                console.log('Query Data Error');
+            }
+            else{
+                resp = await RallyLogModel.find({});
+                if(resp.length == 0){
+                    console.log('Data in rally_logs is empty');
+                }else{
+                    console.log('Data in rally_logs collection : ',resp.length);
+                }
+            }
             break;
         default:
             break;
