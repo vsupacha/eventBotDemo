@@ -44,10 +44,23 @@ exports.handleAgenda = async (req, res) => {
 
     if (location) {
         // Q2.3 find one agenda based on location and time
+        let agenda = await AgendaModel.findOne({ 
+            location: location.locationId, 
+            eventStart: {
+                $regex: new Date(parseInt(location.createdAt)).toISOString().substring(0, 14)
+            }
+        });
+        resp = agenda;
         
     } else {
         // Q2.4 select one agenda based on time and return to user
-
+        let agenda = await AgendaModel.find({
+            eventStart: {
+                $regex: new Date(parseInt(location.createdAt)).toISOString().substring(0, 14)
+            }
+        });
+        const random = Math.floor(Math.random() * agenda.length);
+        resp = agenda[random];
     }
 
     // Q2.5 insert new agenda log into database
