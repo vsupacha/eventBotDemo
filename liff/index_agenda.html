@@ -25,7 +25,10 @@
                 <!-- Check https://onsen.io/v2/api/css.html -->
 
                 <!-- Q2.6 add dropdown to show current location -->
-
+                <!-- need to complete updateMap function -->
+                <ons-select select-id="locations" onchange="updateMap()">
+                    <option value="dummy_option">สถานที่</option>
+                </ons-select>
                 <!-- Q2.7 select active location in dropdown -->
 
                 <!-- Q2.8 add button and bind with queryAgenda( ) -->
@@ -50,7 +53,15 @@
 
             document.addEventListener('init', () => {
                 // use window object to keep userId as global variable
-                
+                navigator.geolocation.getCurrentPosition(geo_getposition, geo_error);
+
+                map = new longdo.Map({
+                    placeholder: document.getElementById('map')
+                });
+                map.Route.mode(longdo.RouteMode.Walk);
+                map.location(longdo.LocationMode.Geolocation);
+                map.Layers.setBase(longdo.Layers.OSM); 
+                map.Route.placeholder(document.getElementById('result')); // route result
             });
 
             ons.ready( () => {
