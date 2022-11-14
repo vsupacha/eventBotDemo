@@ -11,13 +11,31 @@ exports.handleStatus = async (req, res) => {
     switch (req.query.mode) {
         case "visitor":
             // Q5.6 generate summary from VisitorLog
-            resp = await VisitorLogModel.find({},{__v: 0});
-
+            if(VisitorLogModel.find() == null){
+                console.log('Data Error');
+            }
+            else{
+                resp = await VisitorLogModel.find({});
+                if(resp.length == 0){
+                    console.log('Data in visitor_logs is empty');
+                }else{
+                    console.log('Data in visitor_logs collection : ',resp.length);
+                }
+            }
             break
         case "map":
             // Q5.7 generate summary from MapLog
-            resp = await MapLogModel.find({},{__v: 0});
-
+            if(MapLogModel.find() == null){
+                console.log('Data Error');
+            }
+            else{
+                resp = await MapLogModel.find({});
+                if(resp.length == 0){
+                    console.log('Data in map_logs is empty');
+                }else{
+                    console.log('Data in map_logs collection : ',resp.length);
+                }
+            }
             break;
         case "agenda":
             // Q5.8 generate summary from AgendaLog
