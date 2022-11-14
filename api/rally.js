@@ -50,7 +50,7 @@ exports.handleRally = async (req, res) => {
     console.log(allRally)
     res.status(200).json(allRally);
     return allRally;
-    console.log("allRally returned")
+    
 
   } else {
     if (req.query.qr_value === undefined) {
