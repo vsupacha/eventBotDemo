@@ -55,7 +55,26 @@
 
             ons.ready( () => {
                 // Q2.6 query locations from api/location and fill in dropdown
-
+                // get list of location, then populate dropdown
+                fetch("/api/location")
+                    .then((response) => response.json())
+                    .then(locations => {
+                        locations.forEach(location => {
+                            var option = document.createElement('option');
+                            option.value = Object.keys(location)[0];
+                            option.innerHTML = Object.values(location)[0];
+                            document.getElementById('locations').appendChild(option);
+                            // Q1.2 add new marker as reference point
+                            map.Route.add(new longdo.Marker({ lon: Object.keys(location)[1], lat: Object.keys(location)[2]},   
+                                { 
+                                    title: Object.keys(location)[0], 
+                                    detail: Object.keys(location)[0] 
+                                }
+                            ));
+                        });
+                    }).catch(err => {
+                        console.log(err);
+                    });
                 // Q2.7 query current location from api/visitor and update dropdown value/text
 
             });
