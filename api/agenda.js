@@ -64,6 +64,19 @@ exports.handleAgenda = async (req, res) => {
     }
 
     // Q2.5 insert new agenda log into database
-
+    for (const id in agendas) {
+        console.log(id);
+        (async () => {
+            console.log(agendas[id]);
+            await 
+                AgendaLogModel.create({
+                userId: userId,
+                eventId: id,
+                createdAt: Date.now()
+            });
+            
+            console.log('AgendaLog data created');
+        })();
+    }
     res.status(200).json(resp);
 }
